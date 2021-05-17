@@ -2,9 +2,11 @@ package com.haulmont.testtask.dao.inmemory;
 
 import com.haulmont.testtask.dao.CustomerDAO;
 import com.haulmont.testtask.model.Customer;
+import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class InMemoryCustomerDAO implements CustomerDAO {
     private final Map<UUID, Customer> db = new ConcurrentHashMap<>();
 

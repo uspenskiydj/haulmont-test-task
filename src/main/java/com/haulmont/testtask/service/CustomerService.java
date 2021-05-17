@@ -2,9 +2,11 @@ package com.haulmont.testtask.service;
 
 import com.haulmont.testtask.dao.CustomerDAO;
 import com.haulmont.testtask.model.Customer;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class CustomerService {
     private final CustomerDAO dao;
 

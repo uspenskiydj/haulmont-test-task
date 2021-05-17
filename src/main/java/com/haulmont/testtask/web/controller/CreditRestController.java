@@ -1,7 +1,7 @@
-package com.haulmont.testtask.web;
+package com.haulmont.testtask.web.controller;
 
-import com.haulmont.testtask.model.Customer;
-import com.haulmont.testtask.service.CustomerService;
+import com.haulmont.testtask.model.Credit;
+import com.haulmont.testtask.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,15 +14,15 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = CustomerRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class CustomerRestController {
-    static final String REST_URL = "/rest/customers";
+@RequestMapping(value = CreditRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class CreditRestController {
+    static final String REST_URL = "/rest/credits";
 
     @Autowired
-    private CustomerService service;
+    private CreditService service;
 
     @GetMapping("/{id}")
-    public Customer get(@PathVariable UUID id) {
+    public Credit get(@PathVariable UUID id) {
         return service.get(id);
     }
 
@@ -33,19 +33,19 @@ public class CustomerRestController {
     }
 
     @GetMapping
-    public List<Customer> getAll() {
+    public List<Credit> getAll() {
         return service.getAll();
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Customer customer) {
-        service.update(customer);
+    public void update(@Valid @RequestBody Credit credit) {
+        service.update(credit);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> createWithLocation(@Valid @RequestBody Customer customer) {
-        Customer created = service.create(customer);
+    public ResponseEntity<Credit> createWithLocation(@Valid @RequestBody Credit credit) {
+        Credit created = service.create(credit);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();

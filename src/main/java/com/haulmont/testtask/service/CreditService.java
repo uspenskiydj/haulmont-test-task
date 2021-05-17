@@ -2,9 +2,12 @@ package com.haulmont.testtask.service;
 
 import com.haulmont.testtask.dao.CreditDAO;
 import com.haulmont.testtask.model.Credit;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class CreditService {
     private final CreditDAO dao;
 

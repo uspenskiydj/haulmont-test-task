@@ -2,10 +2,13 @@ package com.haulmont.testtask.dao.inmemory;
 
 import com.haulmont.testtask.dao.CreditDAO;
 import com.haulmont.testtask.model.Credit;
+import org.springframework.stereotype.Repository;
+
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class InMemoryCreditDAO implements CreditDAO {
     private final Map<UUID, Credit> db = new ConcurrentHashMap<>();
 
