@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public abstract class AbstractBaseEntity {
 
-    private UUID id;
+    protected UUID id;
 
     protected AbstractBaseEntity() {
     }
@@ -21,10 +21,6 @@ public abstract class AbstractBaseEntity {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public boolean isNew() {
-        return this.id == null;
     }
 
     @Override

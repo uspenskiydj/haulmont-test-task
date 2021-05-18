@@ -11,9 +11,20 @@ public class InMemoryCustomerDAO implements CustomerDAO {
     private final Map<UUID, Customer> db = new ConcurrentHashMap<>();
 
     {
-        db.put(UUID.randomUUID(), new Customer("FIO1", "tel1", "email1", "pas1"));
-        db.put(UUID.randomUUID(), new Customer("FIO2", "tel2", "email2", "pas2"));
-        db.put(UUID.randomUUID(), new Customer("FIO3", "tel3", "email3", "pas3"));
+        UUID uuid1 = UUID.randomUUID();
+        Customer customer1 = new Customer("FIO1", "tel1", "email1", "pas1");
+        customer1.setId(uuid1);
+        db.put(uuid1, customer1);
+
+        UUID uuid2 = UUID.randomUUID();
+        Customer customer2 = new Customer("FIO2", "tel2", "email2", "pas2");
+        customer2.setId(uuid2);
+        db.put(uuid2, customer2);
+
+        UUID uuid3 = UUID.randomUUID();
+        Customer customer3 = new Customer("FIO3", "tel3", "email3", "pas3");
+        customer3.setId(uuid3);
+        db.put(uuid3, customer3);
     }
 
     @Override

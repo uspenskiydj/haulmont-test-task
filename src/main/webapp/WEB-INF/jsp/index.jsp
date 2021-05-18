@@ -7,8 +7,8 @@
 <h3>Проект Credit Bank (Haulmont test-task)</h3>
 <hr>
 <ul>
-    <li><a href="customers">Customers</a></li>
-    <li><a href="credits">Credits</a></li>
+    <li><a href="customers">Клиенты</a></li>
+    <li><a href="credits">Кредиты</a></li>
 </ul>
 </body>
 </html>
