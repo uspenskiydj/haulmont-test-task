@@ -1,11 +1,16 @@
 package com.haulmont.testtask.model;
 
 import org.hibernate.Hibernate;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
+@MappedSuperclass
+@Access(AccessType.FIELD)
 public abstract class AbstractBaseEntity {
-
+    @Id
+    @GeneratedValue
+    @Column(columnDefinition = "BINARY(16)")
     protected UUID id;
 
     protected AbstractBaseEntity() {

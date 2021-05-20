@@ -62,6 +62,6 @@ public class CreditController {
     private Credit getCredit(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         return new Credit(new BigDecimal(request.getParameter("limit")),
-                request.getParameter("interestRate"));
+                Double.parseDouble(request.getParameter("interestRate")));
     }
 }

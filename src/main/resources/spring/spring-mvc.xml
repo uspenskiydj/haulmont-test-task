@@ -24,7 +24,6 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <context:component-scan base-package="com.haulmont.**.dao"/>
     <context:component-scan base-package="com.haulmont.**.service"/>
     <context:component-scan base-package="com.haulmont.**.web"/>
 
