@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class Payment extends AbstractBaseEntity {
 
-    private LocalDateTime date;
+    private LocalDateTime dateTime;
 
     private BigDecimal totalAmount;
 
@@ -16,20 +16,20 @@ public class Payment extends AbstractBaseEntity {
     public Payment() {
     }
 
-    public Payment(LocalDateTime date, BigDecimal totalAmount,
+    public Payment(LocalDateTime dateTime, BigDecimal totalAmount,
                    BigDecimal amountOfCreditBodyRepayment, BigDecimal amountOfInterestRepayment) {
-        this.date = date;
+        this.dateTime = dateTime;
         this.totalAmount = totalAmount;
         this.amountOfCreditBodyRepayment = amountOfCreditBodyRepayment;
         this.amountOfInterestRepayment = amountOfInterestRepayment;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public BigDecimal getTotalAmount() {
@@ -59,7 +59,7 @@ public class Payment extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "Payment{" +
-                "date=" + date +
+                "dateTime=" + dateTime +
                 ", totalAmount=" + totalAmount +
                 ", amountOfCreditBodyRepayment=" + amountOfCreditBodyRepayment +
                 ", amountOfInterestRepayment=" + amountOfInterestRepayment +
