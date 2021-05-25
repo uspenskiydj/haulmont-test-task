@@ -1,104 +1,14 @@
-/*C4*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C5*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers ( id UUID PRIMARY KEY, fio VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, passport_number VARCHAR(255) NOT NULL )
-CREATE TABLE credits ( id UUID PRIMARY KEY, limit DECIMAL NOT NULL, interest_rate DECIMAL NOT NULL )
-CREATE TABLE credit_proposals ( id UUID PRIMARY KEY, credit_amount DECIMAL NOT NULL, customer_id UUID NOT NULL, credit_id UUID NOT NULL, FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE, FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE )
-CREATE TABLE payments ( id UUID PRIMARY KEY, date_time TIMESTAMP NOT NULL, total_amount Decimal NOT NULL, amount_of_credit_body_repayment Decimal NOT NULL, amount_of_interest_repayment Decimal NOT NULL, credit_proposal_id UUID NOT NULL, FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE )
-DROP PROCEDURE populate_db IF EXISTS
-DISCONNECT
-/*C4*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    fio              VARCHAR(255)   NOT NULL,\u000a    phone_number     VARCHAR(255)   NOT NULL,\u000a    email            VARCHAR(255)   NOT NULL,\u000a    passport_number  VARCHAR(255)   NOT NULL\u000a)
-CREATE TABLE credits\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    limit            DECIMAL   NOT NULL,\u000a    interest_rate    DECIMAL   NOT NULL\u000a)
-CREATE TABLE credit_proposals\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    credit_amount    DECIMAL   NOT NULL,\u000a    customer_id      UUID      NOT NULL,\u000a    credit_id        UUID      NOT NULL,\u000a    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE,\u000a    FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE\u000a)
-CREATE TABLE payments\u000a(\u000a    id                UUID        PRIMARY KEY,\u000a    date_time         TIMESTAMP   NOT NULL,\u000a    total_amount      Decimal     NOT NULL,\u000a    amount_of_credit_body_repayment   Decimal   NOT NULL,\u000a    amount_of_interest_repayment      Decimal   NOT NULL,\u000a    credit_proposal_id                UUID      NOT NULL,\u000a    FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE\u000a)
-DISCONNECT
-/*C5*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C6*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C7*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
-CREATE PROCEDURE populate_db()\u000a    MODIFIES SQL DATA\u000aBEGIN\u000a    ATOMIC\u000a    DECLARE customer_id1 UUID;\u000a    DECLARE credit_id1 UUID;\u000a    DECLARE credit_proposal_id1 UUID;\u000a    SET customer_id1 = UUID();\u000a    SET credit_id1 = UUID();\u000a    SET credit_proposal_id1 = UUID();\u000a    DELETE FROM payments;\u000a    DELETE FROM credit_proposals;\u000a    DELETE FROM credits;\u000a    DELETE FROM customers;\u000a    INSERT INTO customers (id, fio, phone_number, email, passport_number)\u000a    VALUES (customer_id1, 'fio1', 'phone1', 'email1', 'pas1');\u000a    INSERT INTO credits (id, limit, interest_rate)\u000a    VALUES (credit_id1, 100.5, 10.5);\u000a    INSERT INTO credit_proposals (id, credit_amount, customer_id, credit_id)\u000a    VALUES (credit_proposal_id1, 50.5, customer_id1, credit_id1);\u000a    INSERT INTO payments (id, date_time, total_amount, amount_of_credit_body_repayment,\u000a                          amount_of_interest_repayment, credit_proposal_id)\u000a    VALUES (UUID(), '2020-01-30 10:00:00', 100.5, 90.3, 10.2, credit_proposal_id1);\u000aEND
-INSERT INTO CUSTOMERS VALUES('e36a6005-7a19-4fcd-bae7-5fd9c2240fd3','fio1','phone1','email1','pas1')
-INSERT INTO CREDITS VALUES('16294c54-d9ff-478c-82c0-a2eee4d6d204',100,10)
-INSERT INTO CREDIT_PROPOSALS VALUES('e9edb33c-8187-4501-8459-0e3806cda912',50,'e36a6005-7a19-4fcd-bae7-5fd9c2240fd3','16294c54-d9ff-478c-82c0-a2eee4d6d204')
-INSERT INTO PAYMENTS VALUES('c7dd04a1-700f-4cbf-a152-531fe380557f','2020-01-30 10:00:00.000000',100,90,10,'e9edb33c-8187-4501-8459-0e3806cda912')
-COMMIT
-DISCONNECT
-/*C8*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C9*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C10*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers ( id UUID PRIMARY KEY, fio VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, passport_number VARCHAR(255) NOT NULL )
-CREATE TABLE credits ( id UUID PRIMARY KEY, limit DECIMAL NOT NULL, interest_rate DECIMAL NOT NULL )
-CREATE TABLE credit_proposals ( id UUID PRIMARY KEY, credit_amount DECIMAL NOT NULL, customer_id UUID NOT NULL, credit_id UUID NOT NULL, FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE, FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE )
-CREATE TABLE payments ( id UUID PRIMARY KEY, date_time TIMESTAMP NOT NULL, total_amount Decimal NOT NULL, amount_of_credit_body_repayment Decimal NOT NULL, amount_of_interest_repayment Decimal NOT NULL, credit_proposal_id UUID NOT NULL, FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE )
-DROP PROCEDURE populate_db IF EXISTS
-DISCONNECT
-/*C11*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C12*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers ( id UUID PRIMARY KEY, fio VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, passport_number VARCHAR(255) NOT NULL )
-CREATE TABLE credits ( id UUID PRIMARY KEY, limit DECIMAL NOT NULL, interest_rate DECIMAL NOT NULL )
-CREATE TABLE credit_proposals ( id UUID PRIMARY KEY, credit_amount DECIMAL NOT NULL, customer_id UUID NOT NULL, credit_id UUID NOT NULL, FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE, FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE )
-CREATE TABLE payments ( id UUID PRIMARY KEY, date_time TIMESTAMP NOT NULL, total_amount Decimal NOT NULL, amount_of_credit_body_repayment Decimal NOT NULL, amount_of_interest_repayment Decimal NOT NULL, credit_proposal_id UUID NOT NULL, FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE )
-DROP PROCEDURE populate_db IF EXISTS
-DISCONNECT
-/*C13*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C14*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers ( id UUID PRIMARY KEY, fio VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, passport_number VARCHAR(255) NOT NULL )
-CREATE TABLE credits ( id UUID PRIMARY KEY, limit DECIMAL NOT NULL, interest_rate DECIMAL NOT NULL )
-CREATE TABLE credit_proposals ( id UUID PRIMARY KEY, credit_amount DECIMAL NOT NULL, customer_id UUID NOT NULL, credit_id UUID NOT NULL, FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE, FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE )
-CREATE TABLE payments ( id UUID PRIMARY KEY, date_time TIMESTAMP NOT NULL, total_amount Decimal NOT NULL, amount_of_credit_body_repayment Decimal NOT NULL, amount_of_interest_repayment Decimal NOT NULL, credit_proposal_id UUID NOT NULL, FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE )
-DROP PROCEDURE populate_db IF EXISTS
-DISCONNECT
-/*C9*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C10*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C11*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C12*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C13*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    fio              VARCHAR(255)   NOT NULL,\u000a    phone_number     VARCHAR(255)   NOT NULL,\u000a    email            VARCHAR(255)   NOT NULL,\u000a    passport_number  VARCHAR(255)   NOT NULL\u000a)
-CREATE TABLE credits\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    limit            DECIMAL   NOT NULL,\u000a    interest_rate    DECIMAL   NOT NULL\u000a)
-CREATE TABLE credit_proposals\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    credit_amount    DECIMAL   NOT NULL,\u000a    customer_id      UUID      NOT NULL,\u000a    credit_id        UUID      NOT NULL,\u000a    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE,\u000a    FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE\u000a)
-CREATE TABLE payments\u000a(\u000a    id                UUID        PRIMARY KEY,\u000a    date_time         TIMESTAMP   NOT NULL,\u000a    total_amount      Decimal     NOT NULL,\u000a    amount_of_credit_body_repayment   Decimal   NOT NULL,\u000a    amount_of_interest_repayment      Decimal   NOT NULL,\u000a    credit_proposal_id                UUID      NOT NULL,\u000a    FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE\u000a)
-DISCONNECT
-/*C14*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C15*/SET SCHEMA PUBLIC
-DISCONNECT
 /*C16*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
+DROP TABLE payments IF EXISTS CASCADE
+DROP TABLE credit_proposals IF EXISTS CASCADE
+DROP TABLE credits IF EXISTS
+DROP TABLE customers IF EXISTS
+DROP TABLE banks IF EXISTS
+CREATE TABLE banks\u000a(\u000a    id               UUID      PRIMARY KEY\u000a)
+CREATE TABLE customers\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    fio              VARCHAR(255)   NOT NULL,\u000a    phone_number     VARCHAR(255)   NOT NULL,\u000a    email            VARCHAR(255)   NOT NULL,\u000a    passport_number  VARCHAR(255)   NOT NULL,\u000a    bank_id          UUID      NOT NULL,\u000a    FOREIGN KEY (bank_id) REFERENCES banks (id) ON DELETE CASCADE\u000a)
+CREATE TABLE credits\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    limit            DECIMAL   NOT NULL,\u000a    interest_rate    DECIMAL   NOT NULL,\u000a    bank_id          UUID      NOT NULL,\u000a    FOREIGN KEY (bank_id) REFERENCES banks (id) ON DELETE CASCADE\u000a)
+CREATE TABLE credit_proposals\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    credit_amount    DECIMAL   NOT NULL,\u000a    customer_id      UUID      NOT NULL,\u000a    credit_id        UUID      NOT NULL,\u000a    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE,\u000a    FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE\u000a)
+CREATE TABLE payments\u000a(\u000a    id                UUID        PRIMARY KEY,\u000a    date              TIMESTAMP   NOT NULL,\u000a    total_amount      Decimal     NOT NULL,\u000a    amount_of_credit_body_repayment   Decimal   NOT NULL,\u000a    amount_of_interest_repayment      Decimal   NOT NULL,\u000a    credit_proposal_id                UUID      NOT NULL,\u000a    FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE\u000a)
 DISCONNECT
 /*C17*/SET SCHEMA PUBLIC
 DISCONNECT
@@ -109,263 +19,73 @@ DISCONNECT
 DISCONNECT
 /*C20*/SET SCHEMA PUBLIC
 DROP PROCEDURE populate_db IF EXISTS
+CREATE PROCEDURE populate_db()\u000a    MODIFIES SQL DATA\u000aBEGIN\u000a    ATOMIC\u000a    DECLARE bank_id1, bank_id2, customer_id1, customer_id2, customer_id3, credit_id1, credit_id2,\u000a        credit_id3, credit_proposal_id1, credit_proposal_id2, credit_proposal_id3 UUID;\u000a    SET bank_id1 = UUID();\u000a    SET bank_id2 = UUID();\u000a    SET customer_id1 = UUID();\u000a    SET customer_id2 = UUID();\u000a    SET customer_id3 = UUID();\u000a    SET credit_id1 = UUID();\u000a    SET credit_id2 = UUID();\u000a    SET credit_id3 = UUID();\u000a    SET credit_proposal_id1 = UUID();\u000a    SET credit_proposal_id2 = UUID();\u000a    SET credit_proposal_id3 = UUID();\u000a\u000a    DELETE FROM payments;\u000a    DELETE FROM credit_proposals;\u000a    DELETE FROM credits;\u000a    DELETE FROM customers;\u000a    DELETE FROM banks;\u000a\u000a    INSERT INTO banks (id)\u000a    VALUES (bank_id1),\u000a           (bank_id2);\u000a\u000a    INSERT INTO customers (id, fio, phone_number, email, passport_number, bank_id)\u000a    VALUES (customer_id1, 'fio1', 'phone1', 'email1', 'pas1', bank_id1),\u000a           (customer_id2, 'fio2', 'phone2', 'email2', 'pas2', bank_id1),\u000a           (customer_id3, 'fio3', 'phone3', 'email3', 'pas3', bank_id2);\u000a\u000a    INSERT INTO credits (id, limit, interest_rate, bank_id)\u000a    VALUES (credit_id1, 100.5, 10.5, bank_id1),\u000a           (credit_id2, 200.5, 20.5, bank_id1),\u000a           (credit_id3, 300.5, 30.5, bank_id2);\u000a\u000a    INSERT INTO credit_proposals (id, credit_amount, customer_id, credit_id)\u000a    VALUES (credit_proposal_id1, 50.5, customer_id1, credit_id1),\u000a           (credit_proposal_id2, 150.5, customer_id2, credit_id2),\u000a           (credit_proposal_id3, 250.5, customer_id3, credit_id3);\u000a\u000a    INSERT INTO payments (id, date, total_amount, amount_of_credit_body_repayment,\u000a                          amount_of_interest_repayment, credit_proposal_id)\u000a    VALUES (UUID(), '2021-01-25', 100.5, 90.3, 10.2, credit_proposal_id1),\u000a           (UUID(), '2021-02-25', 200.5, 180.3, 20.2, credit_proposal_id2),\u000a           (UUID(), '2021-03-25', 300.5, 270.3, 30.2, credit_proposal_id3);\u000aEND
+INSERT INTO BANKS VALUES('b8d2ee15-94a1-4c40-982d-3992b6a3c69f')
+INSERT INTO BANKS VALUES('b1f6fb8d-fbf3-4c66-9449-b6f6847196b5')
+INSERT INTO CUSTOMERS VALUES('1cf2803d-7d66-477f-ab50-40a3fbe601dd','fio1','phone1','email1','pas1','b8d2ee15-94a1-4c40-982d-3992b6a3c69f')
+INSERT INTO CUSTOMERS VALUES('e853d2c9-0455-4ab7-9fba-b692ba5ccde9','fio2','phone2','email2','pas2','b8d2ee15-94a1-4c40-982d-3992b6a3c69f')
+INSERT INTO CUSTOMERS VALUES('70c112fe-4338-4069-b2c2-e9569696e965','fio3','phone3','email3','pas3','b1f6fb8d-fbf3-4c66-9449-b6f6847196b5')
+INSERT INTO CREDITS VALUES('a86aab46-ed82-402d-92bd-c8c028aba93a',100,10,'b8d2ee15-94a1-4c40-982d-3992b6a3c69f')
+INSERT INTO CREDITS VALUES('fef01bfd-fcee-4795-ba51-52073490c7c0',200,20,'b8d2ee15-94a1-4c40-982d-3992b6a3c69f')
+INSERT INTO CREDITS VALUES('aeb38984-0da4-4a4b-acd7-f85eac28a086',300,30,'b1f6fb8d-fbf3-4c66-9449-b6f6847196b5')
+INSERT INTO CREDIT_PROPOSALS VALUES('d3372a6f-a62f-443f-a790-2a1aa4eef297',50,'1cf2803d-7d66-477f-ab50-40a3fbe601dd','a86aab46-ed82-402d-92bd-c8c028aba93a')
+INSERT INTO CREDIT_PROPOSALS VALUES('e702ffcc-871a-413e-9bbc-e6887a7e8e93',150,'e853d2c9-0455-4ab7-9fba-b692ba5ccde9','fef01bfd-fcee-4795-ba51-52073490c7c0')
+INSERT INTO CREDIT_PROPOSALS VALUES('e6bd9019-f8bc-4217-84d2-ad675bfa410d',250,'70c112fe-4338-4069-b2c2-e9569696e965','aeb38984-0da4-4a4b-acd7-f85eac28a086')
+INSERT INTO PAYMENTS VALUES('467a5fe7-153c-4313-96ed-7b789a033ed3','2021-01-25 00:00:00.000000',100,90,10,'d3372a6f-a62f-443f-a790-2a1aa4eef297')
+INSERT INTO PAYMENTS VALUES('97c83f2a-ddb3-4103-8f2c-4eae8f4e9c6c','2021-02-25 00:00:00.000000',200,180,20,'e702ffcc-871a-413e-9bbc-e6887a7e8e93')
+INSERT INTO PAYMENTS VALUES('888858d8-4c7f-4530-9936-e0c2330cd84e','2021-03-25 00:00:00.000000',300,270,30,'e6bd9019-f8bc-4217-84d2-ad675bfa410d')
+COMMIT
 DISCONNECT
 /*C21*/SET SCHEMA PUBLIC
 DISCONNECT
 /*C22*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
 DISCONNECT
 /*C23*/SET SCHEMA PUBLIC
+DROP TABLE payments IF EXISTS CASCADE
+DROP TABLE credit_proposals IF EXISTS CASCADE
+DROP TABLE credits IF EXISTS
+DROP TABLE customers IF EXISTS
+DROP TABLE banks IF EXISTS
+CREATE TABLE banks\u000a(\u000a    id               UUID      PRIMARY KEY\u000a)
+CREATE TABLE customers\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    fio              VARCHAR(255)   NOT NULL,\u000a    phone_number     VARCHAR(255)   NOT NULL,\u000a    email            VARCHAR(255)   NOT NULL,\u000a    passport_number  VARCHAR(255)   NOT NULL,\u000a    bank_id          UUID      NOT NULL,\u000a    FOREIGN KEY (bank_id) REFERENCES banks (id) ON DELETE CASCADE\u000a)
+CREATE TABLE credits\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    limit            DECIMAL   NOT NULL,\u000a    interest_rate    DECIMAL   NOT NULL,\u000a    bank_id          UUID      NOT NULL,\u000a    FOREIGN KEY (bank_id) REFERENCES banks (id) ON DELETE CASCADE\u000a)
+CREATE TABLE credit_proposals\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    credit_amount    DECIMAL   NOT NULL,\u000a    customer_id      UUID      NOT NULL,\u000a    credit_id        UUID      NOT NULL,\u000a    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE,\u000a    FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE\u000a)
+CREATE TABLE payments\u000a(\u000a    id                UUID        PRIMARY KEY,\u000a    date              Date        NOT NULL,\u000a    total_amount      Decimal     NOT NULL,\u000a    amount_of_credit_body_repayment   Decimal   NOT NULL,\u000a    amount_of_interest_repayment      Decimal   NOT NULL,\u000a    credit_proposal_id                UUID      NOT NULL,\u000a    FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE\u000a)
 DISCONNECT
 /*C24*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
 DISCONNECT
 /*C25*/SET SCHEMA PUBLIC
+DROP PROCEDURE populate_db IF EXISTS
+CREATE PROCEDURE populate_db()\u000a    MODIFIES SQL DATA\u000aBEGIN\u000a    ATOMIC\u000a    DECLARE bank_id1, bank_id2, customer_id1, customer_id2, customer_id3, credit_id1, credit_id2,\u000a        credit_id3, credit_proposal_id1, credit_proposal_id2, credit_proposal_id3 UUID;\u000a    SET bank_id1 = UUID();\u000a    SET bank_id2 = UUID();\u000a    SET customer_id1 = UUID();\u000a    SET customer_id2 = UUID();\u000a    SET customer_id3 = UUID();\u000a    SET credit_id1 = UUID();\u000a    SET credit_id2 = UUID();\u000a    SET credit_id3 = UUID();\u000a    SET credit_proposal_id1 = UUID();\u000a    SET credit_proposal_id2 = UUID();\u000a    SET credit_proposal_id3 = UUID();\u000a\u000a    DELETE FROM payments;\u000a    DELETE FROM credit_proposals;\u000a    DELETE FROM credits;\u000a    DELETE FROM customers;\u000a    DELETE FROM banks;\u000a\u000a    INSERT INTO banks (id)\u000a    VALUES (bank_id1),\u000a           (bank_id2);\u000a\u000a    INSERT INTO customers (id, fio, phone_number, email, passport_number, bank_id)\u000a    VALUES (customer_id1, 'fio1', 'phone1', 'email1', 'pas1', bank_id1),\u000a           (customer_id2, 'fio2', 'phone2', 'email2', 'pas2', bank_id1),\u000a           (customer_id3, 'fio3', 'phone3', 'email3', 'pas3', bank_id2);\u000a\u000a    INSERT INTO credits (id, limit, interest_rate, bank_id)\u000a    VALUES (credit_id1, 100.5, 10.5, bank_id1),\u000a           (credit_id2, 200.5, 20.5, bank_id1),\u000a           (credit_id3, 300.5, 30.5, bank_id2);\u000a\u000a    INSERT INTO credit_proposals (id, credit_amount, customer_id, credit_id)\u000a    VALUES (credit_proposal_id1, 50.5, customer_id1, credit_id1),\u000a           (credit_proposal_id2, 150.5, customer_id2, credit_id2),\u000a           (credit_proposal_id3, 250.5, customer_id3, credit_id3);\u000a\u000a    INSERT INTO payments (id, date, total_amount, amount_of_credit_body_repayment,\u000a                          amount_of_interest_repayment, credit_proposal_id)\u000a    VALUES (UUID(), '2021-01-25', 100.5, 90.3, 10.2, credit_proposal_id1),\u000a           (UUID(), '2021-02-25', 200.5, 180.3, 20.2, credit_proposal_id2),\u000a           (UUID(), '2021-03-25', 300.5, 270.3, 30.2, credit_proposal_id3);\u000aEND
+INSERT INTO BANKS VALUES('94e97328-ad1c-485f-90fd-d951ac0650e5')
+INSERT INTO BANKS VALUES('4e04d5c2-9647-47be-926d-ffb48e0a131d')
+INSERT INTO CUSTOMERS VALUES('197a65d0-8e59-4195-a0d6-ca6f43d474e2','fio1','phone1','email1','pas1','94e97328-ad1c-485f-90fd-d951ac0650e5')
+INSERT INTO CUSTOMERS VALUES('205f4a1f-4119-4173-92e3-be77f6681661','fio2','phone2','email2','pas2','94e97328-ad1c-485f-90fd-d951ac0650e5')
+INSERT INTO CUSTOMERS VALUES('548d3fc5-e595-4c56-a3b2-4a6799d2c853','fio3','phone3','email3','pas3','4e04d5c2-9647-47be-926d-ffb48e0a131d')
+INSERT INTO CREDITS VALUES('02bf6407-c193-4388-94d3-1ee9c95a4aa1',100,10,'94e97328-ad1c-485f-90fd-d951ac0650e5')
+INSERT INTO CREDITS VALUES('c38ffcca-1be6-414d-a7b4-1c4260c38a99',200,20,'94e97328-ad1c-485f-90fd-d951ac0650e5')
+INSERT INTO CREDITS VALUES('f66598af-5177-409b-9916-5318c453a5ce',300,30,'4e04d5c2-9647-47be-926d-ffb48e0a131d')
+INSERT INTO CREDIT_PROPOSALS VALUES('aa97a48a-672a-4cb3-84d3-55c70a506089',50,'197a65d0-8e59-4195-a0d6-ca6f43d474e2','02bf6407-c193-4388-94d3-1ee9c95a4aa1')
+INSERT INTO CREDIT_PROPOSALS VALUES('57c191d4-4d02-4d06-84fa-2d9dca197454',150,'205f4a1f-4119-4173-92e3-be77f6681661','c38ffcca-1be6-414d-a7b4-1c4260c38a99')
+INSERT INTO CREDIT_PROPOSALS VALUES('9b5f313e-60b3-4abe-ab25-d2d60438d826',250,'548d3fc5-e595-4c56-a3b2-4a6799d2c853','f66598af-5177-409b-9916-5318c453a5ce')
+INSERT INTO PAYMENTS VALUES('39d926a0-195d-4c54-836c-8a944fb2002c','2021-01-25',100,90,10,'aa97a48a-672a-4cb3-84d3-55c70a506089')
+INSERT INTO PAYMENTS VALUES('21fe229b-4784-4f6e-8bf7-26e9dc0aa2cd','2021-02-25',200,180,20,'57c191d4-4d02-4d06-84fa-2d9dca197454')
+INSERT INTO PAYMENTS VALUES('62225953-1b3d-4d5e-9bf9-ee69a7d9e63f','2021-03-25',300,270,30,'9b5f313e-60b3-4abe-ab25-d2d60438d826')
+COMMIT
 DISCONNECT
 /*C26*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
 DISCONNECT
 /*C27*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C28*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
+/*C14*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C29*/SET SCHEMA PUBLIC
+/*C15*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C30*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
+/*C16*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C31*/SET SCHEMA PUBLIC
+/*C17*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C32*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
-CREATE PROCEDURE populate_db()\u000a    MODIFIES SQL DATA\u000aBEGIN\u000a    ATOMIC\u000a    DECLARE customer_id1, customer_id2, customer_id3, credit_id1, credit_id2, credit_id3,\u000a        credit_proposal_id1, credit_proposal_id2, credit_proposal_id3 UUID;\u000a    SET customer_id1 = UUID();\u000a    SET customer_id2 = UUID();\u000a    SET customer_id3 = UUID();\u000a    SET credit_id1 = UUID();\u000a    SET credit_id2 = UUID();\u000a    SET credit_id3 = UUID();\u000a    SET credit_proposal_id1 = UUID();\u000a    SET credit_proposal_id2 = UUID();\u000a    SET credit_proposal_id3 = UUID();\u000a\u000a    DELETE FROM payments;\u000a    DELETE FROM credit_proposals;\u000a    DELETE FROM credits;\u000a    DELETE FROM customers;\u000a\u000a    INSERT INTO customers (id, fio, phone_number, email, passport_number)\u000a    VALUES (customer_id1, 'fio1', 'phone1', 'email1', 'pas1'),\u000a           (customer_id2, 'fio2', 'phone2', 'email2', 'pas2'),\u000a           (customer_id3, 'fio3', 'phone3', 'email3', 'pas3');\u000a\u000a    INSERT INTO credits (id, limit, interest_rate)\u000a    VALUES (credit_id1, 100.5, 10.5),\u000a           (credit_id2, 200.5, 20.5),\u000a           (credit_id3, 300.5, 30.5);\u000a\u000a    INSERT INTO credit_proposals (id, credit_amount, customer_id, credit_id)\u000a    VALUES (credit_proposal_id1, 50.5, customer_id1, credit_id1),\u000a           (credit_proposal_id2, 150.5, customer_id2, credit_id2),\u000a           (credit_proposal_id3, 250.5, customer_id3, credit_id3);\u000a\u000a    INSERT INTO payments (id, date_time, total_amount, amount_of_credit_body_repayment,\u000a                          amount_of_interest_repayment, credit_proposal_id)\u000a    VALUES (UUID(), '2020-01-30 10:00:00', 100.5, 90.3, 10.2, credit_proposal_id1),\u000a           (UUID(), '2020-01-30 13:00:00', 200.5, 180.3, 20.2, credit_proposal_id2),\u000a           (UUID(), '2020-01-31 14:00:00', 300.5, 270.3, 30.2, credit_proposal_id3);\u000aEND
-INSERT INTO CUSTOMERS VALUES('d3af05d3-4a2c-403e-95a9-552da57678eb','fio1','phone1','email1','pas1')
-INSERT INTO CUSTOMERS VALUES('c208cf13-eb11-4554-b09e-9c4401645142','fio2','phone2','email2','pas2')
-INSERT INTO CUSTOMERS VALUES('46e7ce03-388c-41d9-98ac-915d9d52186e','fio3','phone3','email3','pas3')
-INSERT INTO CREDITS VALUES('eae52b53-dae1-447a-b0fb-6fda2c9094d0',100,10)
-INSERT INTO CREDITS VALUES('6e7a9109-a0c2-47fa-92f6-0d0a4b834b56',200,20)
-INSERT INTO CREDITS VALUES('ef4799f5-af3a-4672-a656-bc41255a3282',300,30)
-INSERT INTO CREDIT_PROPOSALS VALUES('9418f915-43e5-469a-a38c-c059d2941232',50,'d3af05d3-4a2c-403e-95a9-552da57678eb','eae52b53-dae1-447a-b0fb-6fda2c9094d0')
-INSERT INTO CREDIT_PROPOSALS VALUES('ec27e0cf-10f6-4366-93ff-7a57ddfce3d5',150,'c208cf13-eb11-4554-b09e-9c4401645142','6e7a9109-a0c2-47fa-92f6-0d0a4b834b56')
-INSERT INTO CREDIT_PROPOSALS VALUES('ce07d18d-dc7a-4dff-ab28-225521b482d1',250,'46e7ce03-388c-41d9-98ac-915d9d52186e','ef4799f5-af3a-4672-a656-bc41255a3282')
-INSERT INTO PAYMENTS VALUES('00fc1be1-935f-4e1c-9ba7-5b36aa0b545d','2020-01-30 10:00:00.000000',100,90,10,'9418f915-43e5-469a-a38c-c059d2941232')
-INSERT INTO PAYMENTS VALUES('d59e2ee0-4348-47aa-851b-b361e106d290','2020-01-30 13:00:00.000000',200,180,20,'ec27e0cf-10f6-4366-93ff-7a57ddfce3d5')
-INSERT INTO PAYMENTS VALUES('4ffffec0-09fb-4edd-b62b-5ca6d6c6a151','2020-01-31 14:00:00.000000',300,270,30,'ce07d18d-dc7a-4dff-ab28-225521b482d1')
-COMMIT
+/*C18*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C33*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C34*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C35*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
-CREATE PROCEDURE populate_db()\u000a    MODIFIES SQL DATA\u000aBEGIN\u000a    ATOMIC\u000a    DECLARE customer_id1, customer_id2, customer_id3, credit_id1, credit_id2, credit_id3,\u000a        credit_proposal_id1, credit_proposal_id2, credit_proposal_id3 UUID;\u000a    SET customer_id1 = UUID();\u000a    SET customer_id2 = UUID();\u000a    SET customer_id3 = UUID();\u000a    SET credit_id1 = UUID();\u000a    SET credit_id2 = UUID();\u000a    SET credit_id3 = UUID();\u000a    SET credit_proposal_id1 = UUID();\u000a    SET credit_proposal_id2 = UUID();\u000a    SET credit_proposal_id3 = UUID();\u000a\u000a    DELETE FROM payments;\u000a    DELETE FROM credit_proposals;\u000a    DELETE FROM credits;\u000a    DELETE FROM customers;\u000a\u000a    INSERT INTO customers (id, fio, phone_number, email, passport_number)\u000a    VALUES (customer_id1, 'fio1', 'phone1', 'email1', 'pas1'),\u000a           (customer_id2, 'fio2', 'phone2', 'email2', 'pas2'),\u000a           (customer_id3, 'fio3', 'phone3', 'email3', 'pas3');\u000a\u000a    INSERT INTO credits (id, limit, interest_rate)\u000a    VALUES (credit_id1, 100.5, 10.5),\u000a           (credit_id2, 200.5, 20.5),\u000a           (credit_id3, 300.5, 30.5);\u000a\u000a    INSERT INTO credit_proposals (id, credit_amount, customer_id, credit_id)\u000a    VALUES (credit_proposal_id1, 50.5, customer_id1, credit_id1),\u000a           (credit_proposal_id2, 150.5, customer_id2, credit_id2),\u000a           (credit_proposal_id3, 250.5, customer_id3, credit_id3);\u000a\u000a    INSERT INTO payments (id, date_time, total_amount, amount_of_credit_body_repayment,\u000a                          amount_of_interest_repayment, credit_proposal_id)\u000a    VALUES (UUID(), '2020-01-30 10:00:00', 100.5, 90.3, 10.2, credit_proposal_id1),\u000a           (UUID(), '2020-01-30 13:00:00', 200.5, 180.3, 20.2, credit_proposal_id2),\u000a           (UUID(), '2020-01-31 14:00:00', 300.5, 270.3, 30.2, credit_proposal_id3);\u000aEND
-DELETE FROM PAYMENTS WHERE ID='00fc1be1-935f-4e1c-9ba7-5b36aa0b545d'
-DELETE FROM PAYMENTS WHERE ID='4ffffec0-09fb-4edd-b62b-5ca6d6c6a151'
-DELETE FROM PAYMENTS WHERE ID='d59e2ee0-4348-47aa-851b-b361e106d290'
-DELETE FROM CREDIT_PROPOSALS WHERE ID='9418f915-43e5-469a-a38c-c059d2941232'
-DELETE FROM CREDIT_PROPOSALS WHERE ID='ce07d18d-dc7a-4dff-ab28-225521b482d1'
-DELETE FROM CREDIT_PROPOSALS WHERE ID='ec27e0cf-10f6-4366-93ff-7a57ddfce3d5'
-DELETE FROM CREDITS WHERE ID='6e7a9109-a0c2-47fa-92f6-0d0a4b834b56'
-DELETE FROM CREDITS WHERE ID='eae52b53-dae1-447a-b0fb-6fda2c9094d0'
-DELETE FROM CREDITS WHERE ID='ef4799f5-af3a-4672-a656-bc41255a3282'
-DELETE FROM CUSTOMERS WHERE ID='46e7ce03-388c-41d9-98ac-915d9d52186e'
-DELETE FROM CUSTOMERS WHERE ID='c208cf13-eb11-4554-b09e-9c4401645142'
-DELETE FROM CUSTOMERS WHERE ID='d3af05d3-4a2c-403e-95a9-552da57678eb'
-INSERT INTO CUSTOMERS VALUES('c5bee4d8-27eb-48a0-b753-524ea0007ee4','fio1','phone1','email1','pas1')
-INSERT INTO CUSTOMERS VALUES('2d6c1804-a167-480c-8642-74963317f9ae','fio2','phone2','email2','pas2')
-INSERT INTO CUSTOMERS VALUES('74217212-da83-4691-88a7-ebf40e245c48','fio3','phone3','email3','pas3')
-INSERT INTO CREDITS VALUES('8c1e21c6-25c1-4f4c-ad3e-8fcf87cd07ff',100,10)
-INSERT INTO CREDITS VALUES('c5a0f2ec-de48-4bdc-92b2-d8a4388c82fd',200,20)
-INSERT INTO CREDITS VALUES('fc2f4755-db1e-48e0-b286-c39198284863',300,30)
-INSERT INTO CREDIT_PROPOSALS VALUES('f88ec05e-a7c6-4013-a33c-30299ac0ba74',50,'c5bee4d8-27eb-48a0-b753-524ea0007ee4','8c1e21c6-25c1-4f4c-ad3e-8fcf87cd07ff')
-INSERT INTO CREDIT_PROPOSALS VALUES('cf212763-209a-4e00-b894-0505f2c5ffdd',150,'2d6c1804-a167-480c-8642-74963317f9ae','c5a0f2ec-de48-4bdc-92b2-d8a4388c82fd')
-INSERT INTO CREDIT_PROPOSALS VALUES('8c1de6ee-d868-4346-b2b1-c2ea73df1fdc',250,'74217212-da83-4691-88a7-ebf40e245c48','fc2f4755-db1e-48e0-b286-c39198284863')
-INSERT INTO PAYMENTS VALUES('fc68eda0-1b35-41ca-a0f4-9bf93df96734','2020-01-30 10:00:00.000000',100,90,10,'f88ec05e-a7c6-4013-a33c-30299ac0ba74')
-INSERT INTO PAYMENTS VALUES('d3a4a05b-5527-4f56-8289-a47ff6a3a538','2020-01-30 13:00:00.000000',200,180,20,'cf212763-209a-4e00-b894-0505f2c5ffdd')
-INSERT INTO PAYMENTS VALUES('9e416656-f0aa-4cda-b605-7421971c682d','2020-01-31 14:00:00.000000',300,270,30,'8c1de6ee-d868-4346-b2b1-c2ea73df1fdc')
-COMMIT
-DISCONNECT
-/*C36*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C37*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C38*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    fio              VARCHAR(255)   NOT NULL,\u000a    phone_number     VARCHAR(255)   NOT NULL,\u000a    email            VARCHAR(255)   NOT NULL,\u000a    passport_number  VARCHAR(255)   NOT NULL\u000a)
-CREATE TABLE credits\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    limit            DECIMAL   NOT NULL,\u000a    interest_rate    DECIMAL   NOT NULL\u000a)
-CREATE TABLE credit_proposals\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    credit_amount    DECIMAL   NOT NULL,\u000a    customer_id      UUID      NOT NULL,\u000a    credit_id        UUID      NOT NULL,\u000a    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE,\u000a    FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE\u000a)
-CREATE TABLE payments\u000a(\u000a    id                UUID        PRIMARY KEY,\u000a    date_time         TIMESTAMP   NOT NULL,\u000a    total_amount      Decimal     NOT NULL,\u000a    amount_of_credit_body_repayment   Decimal   NOT NULL,\u000a    amount_of_interest_repayment      Decimal   NOT NULL,\u000a    credit_proposal_id                UUID      NOT NULL,\u000a    FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE\u000a)
-DISCONNECT
-/*C39*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C40*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C47*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C48*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers ( id UUID PRIMARY KEY, fio VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, passport_number VARCHAR(255) NOT NULL )
-CREATE TABLE credits ( id UUID PRIMARY KEY, limit DECIMAL NOT NULL, interest_rate DECIMAL NOT NULL )
-CREATE TABLE credit_proposals ( id UUID PRIMARY KEY, credit_amount DECIMAL NOT NULL, customer_id UUID NOT NULL, credit_id UUID NOT NULL, FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE, FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE )
-CREATE TABLE payments ( id UUID PRIMARY KEY, date_time TIMESTAMP NOT NULL, total_amount Decimal NOT NULL, amount_of_credit_body_repayment Decimal NOT NULL, amount_of_interest_repayment Decimal NOT NULL, credit_proposal_id UUID NOT NULL, FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE )
-DROP PROCEDURE populate_db IF EXISTS
-DISCONNECT
-/*C41*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    fio              VARCHAR(255)   NOT NULL,\u000a    phone_number     VARCHAR(255)   NOT NULL,\u000a    email            VARCHAR(255)   NOT NULL,\u000a    passport_number  VARCHAR(255)   NOT NULL\u000a)
-CREATE TABLE credits\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    limit            DECIMAL   NOT NULL,\u000a    interest_rate    DECIMAL   NOT NULL\u000a)
-CREATE TABLE credit_proposals\u000a(\u000a    id               UUID      PRIMARY KEY,\u000a    credit_amount    DECIMAL   NOT NULL,\u000a    customer_id      UUID      NOT NULL,\u000a    credit_id        UUID      NOT NULL,\u000a    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE,\u000a    FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE\u000a)
-CREATE TABLE payments\u000a(\u000a    id                UUID        PRIMARY KEY,\u000a    date_time         TIMESTAMP   NOT NULL,\u000a    total_amount      Decimal     NOT NULL,\u000a    amount_of_credit_body_repayment   Decimal   NOT NULL,\u000a    amount_of_interest_repayment      Decimal   NOT NULL,\u000a    credit_proposal_id                UUID      NOT NULL,\u000a    FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE\u000a)
-DISCONNECT
-/*C42*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C43*/SET SCHEMA PUBLIC
-DROP PROCEDURE populate_db IF EXISTS
-CREATE PROCEDURE populate_db()\u000a    MODIFIES SQL DATA\u000aBEGIN\u000a    ATOMIC\u000a    DECLARE customer_id1, customer_id2, customer_id3, credit_id1, credit_id2, credit_id3,\u000a        credit_proposal_id1, credit_proposal_id2, credit_proposal_id3 UUID;\u000a    SET customer_id1 = UUID();\u000a    SET customer_id2 = UUID();\u000a    SET customer_id3 = UUID();\u000a    SET credit_id1 = UUID();\u000a    SET credit_id2 = UUID();\u000a    SET credit_id3 = UUID();\u000a    SET credit_proposal_id1 = UUID();\u000a    SET credit_proposal_id2 = UUID();\u000a    SET credit_proposal_id3 = UUID();\u000a\u000a    DELETE FROM payments;\u000a    DELETE FROM credit_proposals;\u000a    DELETE FROM credits;\u000a    DELETE FROM customers;\u000a\u000a    INSERT INTO customers (id, fio, phone_number, email, passport_number)\u000a    VALUES (customer_id1, 'fio1', 'phone1', 'email1', 'pas1'),\u000a           (customer_id2, 'fio2', 'phone2', 'email2', 'pas2'),\u000a           (customer_id3, 'fio3', 'phone3', 'email3', 'pas3');\u000a\u000a    INSERT INTO credits (id, limit, interest_rate)\u000a    VALUES (credit_id1, 100.5, 10.5),\u000a           (credit_id2, 200.5, 20.5),\u000a           (credit_id3, 300.5, 30.5);\u000a\u000a    INSERT INTO credit_proposals (id, credit_amount, customer_id, credit_id)\u000a    VALUES (credit_proposal_id1, 50.5, customer_id1, credit_id1),\u000a           (credit_proposal_id2, 150.5, customer_id2, credit_id2),\u000a           (credit_proposal_id3, 250.5, customer_id3, credit_id3);\u000a\u000a    INSERT INTO payments (id, date_time, total_amount, amount_of_credit_body_repayment,\u000a                          amount_of_interest_repayment, credit_proposal_id)\u000a    VALUES (UUID(), '2020-01-30 10:00:00', 100.5, 90.3, 10.2, credit_proposal_id1),\u000a           (UUID(), '2020-01-30 13:00:00', 200.5, 180.3, 20.2, credit_proposal_id2),\u000a           (UUID(), '2020-01-31 14:00:00', 300.5, 270.3, 30.2, credit_proposal_id3);\u000aEND
-INSERT INTO CUSTOMERS VALUES('8fdb644e-8e32-48e5-82a4-adb8afa1400c','fio1','phone1','email1','pas1')
-INSERT INTO CUSTOMERS VALUES('5cb641af-4432-4704-836f-a7fb8e72c3cd','fio2','phone2','email2','pas2')
-INSERT INTO CUSTOMERS VALUES('cac064ee-44e1-4a7a-ab0c-70e828ef08f8','fio3','phone3','email3','pas3')
-INSERT INTO CREDITS VALUES('9a75e0ac-26d1-40f0-83b0-e4c4b21f52a4',100,10)
-INSERT INTO CREDITS VALUES('8c2e169b-f042-419f-ad5c-70c53b5f46b9',200,20)
-INSERT INTO CREDITS VALUES('bd68cb92-ca69-4e41-88ef-d7220bed88c6',300,30)
-INSERT INTO CREDIT_PROPOSALS VALUES('c02e72df-b864-4bda-be3e-007b4e5eccb9',50,'8fdb644e-8e32-48e5-82a4-adb8afa1400c','9a75e0ac-26d1-40f0-83b0-e4c4b21f52a4')
-INSERT INTO CREDIT_PROPOSALS VALUES('d4d76eae-97a2-4201-b59d-91089cbe4a46',150,'5cb641af-4432-4704-836f-a7fb8e72c3cd','8c2e169b-f042-419f-ad5c-70c53b5f46b9')
-INSERT INTO CREDIT_PROPOSALS VALUES('eb6ad70a-7af7-42fe-a605-89d870518a2b',250,'cac064ee-44e1-4a7a-ab0c-70e828ef08f8','bd68cb92-ca69-4e41-88ef-d7220bed88c6')
-INSERT INTO PAYMENTS VALUES('9aa83250-d353-4398-80b7-5b29b6e040f9','2020-01-30 10:00:00.000000',100,90,10,'c02e72df-b864-4bda-be3e-007b4e5eccb9')
-INSERT INTO PAYMENTS VALUES('be02c750-e10f-44e8-a7be-25e8f8ed62e4','2020-01-30 13:00:00.000000',200,180,20,'d4d76eae-97a2-4201-b59d-91089cbe4a46')
-INSERT INTO PAYMENTS VALUES('2be5e749-a5fe-43f2-bdd9-f54170ff7b40','2020-01-31 14:00:00.000000',300,270,30,'eb6ad70a-7af7-42fe-a605-89d870518a2b')
-COMMIT
-DISCONNECT
-/*C44*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C45*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C46*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C47*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C48*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C57*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C58*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers ( id UUID PRIMARY KEY, fio VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, passport_number VARCHAR(255) NOT NULL )
-CREATE TABLE credits ( id UUID PRIMARY KEY, limit DECIMAL NOT NULL, interest_rate DECIMAL NOT NULL )
-CREATE TABLE credit_proposals ( id UUID PRIMARY KEY, credit_amount DECIMAL NOT NULL, customer_id UUID NOT NULL, credit_id UUID NOT NULL, FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE, FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE )
-CREATE TABLE payments ( id UUID PRIMARY KEY, date_time TIMESTAMP NOT NULL, total_amount Decimal NOT NULL, amount_of_credit_body_repayment Decimal NOT NULL, amount_of_interest_repayment Decimal NOT NULL, credit_proposal_id UUID NOT NULL, FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE )
-DROP PROCEDURE populate_db IF EXISTS
-CREATE PROCEDURE populate_db() MODIFIES SQL DATA BEGIN ATOMIC DECLARE customer_id1, customer_id2, customer_id3, credit_id1, credit_id2, credit_id3, credit_proposal_id1, credit_proposal_id2, credit_proposal_id3 UUID; SET customer_id1 = UUID(); SET customer_id2 = UUID(); SET customer_id3 = UUID(); SET credit_id1 = UUID(); SET credit_id2 = UUID(); SET credit_id3 = UUID(); SET credit_proposal_id1 = UUID(); SET credit_proposal_id2 = UUID(); SET credit_proposal_id3 = UUID(); DELETE FROM payments; DELETE FROM credit_proposals; DELETE FROM credits; DELETE FROM customers; INSERT INTO customers (id, fio, phone_number, email, passport_number) VALUES (customer_id1, 'fio1', 'phone1', 'email1', 'pas1'), (customer_id2, 'fio2', 'phone2', 'email2', 'pas2'), (customer_id3, 'fio3', 'phone3', 'email3', 'pas3'); INSERT INTO credits (id, limit, interest_rate) VALUES (credit_id1, 100.5, 10.5), (credit_id2, 200.5, 20.5), (credit_id3, 300.5, 30.5); INSERT INTO credit_proposals (id, credit_amount, customer_id, credit_id) VALUES (credit_proposal_id1, 50.5, customer_id1, credit_id1), (credit_proposal_id2, 150.5, customer_id2, credit_id2), (credit_proposal_id3, 250.5, customer_id3, credit_id3); INSERT INTO payments (id, date_time, total_amount, amount_of_credit_body_repayment, amount_of_interest_repayment, credit_proposal_id) VALUES (UUID(), '2020-01-30 10:00:00', 100.5, 90.3, 10.2, credit_proposal_id1), (UUID(), '2020-01-30 13:00:00', 200.5, 180.3, 20.2, credit_proposal_id2), (UUID(), '2020-01-31 14:00:00', 300.5, 270.3, 30.2, credit_proposal_id3); END
-INSERT INTO CUSTOMERS VALUES('1673f1a4-cfbb-4050-b2f3-b48c3c90f3cb','fio1','phone1','email1','pas1')
-INSERT INTO CUSTOMERS VALUES('25b4206d-4b9a-441a-8746-1516f3911f71','fio2','phone2','email2','pas2')
-INSERT INTO CUSTOMERS VALUES('f41b3829-d20b-4b7f-addd-8f01f526b268','fio3','phone3','email3','pas3')
-INSERT INTO CREDITS VALUES('dd00580d-c5d0-40e1-a926-54e8f17b548d',100,10)
-INSERT INTO CREDITS VALUES('668e6dc5-8118-477f-9f0c-52ac2cd455df',200,20)
-INSERT INTO CREDITS VALUES('1a182bc4-d14e-44b1-a5cf-add76b0ea2a0',300,30)
-INSERT INTO CREDIT_PROPOSALS VALUES('b48de61a-5501-4f69-b368-4d1366749507',50,'1673f1a4-cfbb-4050-b2f3-b48c3c90f3cb','dd00580d-c5d0-40e1-a926-54e8f17b548d')
-INSERT INTO CREDIT_PROPOSALS VALUES('687688ef-e8fc-461b-afc9-7df2f8e70866',150,'25b4206d-4b9a-441a-8746-1516f3911f71','668e6dc5-8118-477f-9f0c-52ac2cd455df')
-INSERT INTO CREDIT_PROPOSALS VALUES('42c37cde-02cb-4398-9174-6d2cb2fe0cfe',250,'f41b3829-d20b-4b7f-addd-8f01f526b268','1a182bc4-d14e-44b1-a5cf-add76b0ea2a0')
-INSERT INTO PAYMENTS VALUES('03350efd-b934-44eb-a543-7d55cb4a7cbe','2020-01-30 10:00:00.000000',100,90,10,'b48de61a-5501-4f69-b368-4d1366749507')
-INSERT INTO PAYMENTS VALUES('9882c7dc-9e9d-4763-b9b2-bf2fb4f4b24d','2020-01-30 13:00:00.000000',200,180,20,'687688ef-e8fc-461b-afc9-7df2f8e70866')
-INSERT INTO PAYMENTS VALUES('fc779b64-2ab9-4e19-87e7-2a6ff02aecaf','2020-01-31 14:00:00.000000',300,270,30,'42c37cde-02cb-4398-9174-6d2cb2fe0cfe')
-COMMIT
-DISCONNECT
-/*C59*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C60*/SET SCHEMA PUBLIC
-INSERT INTO CUSTOMERS VALUES('dd7b7c3e-8018-4e4b-8fcf-18b1acabcb3c','Sam Villiam','+ 883(3528)767-03-47','adfgasfgasf@gmail.com','32423424')
-COMMIT
-DISCONNECT
-/*C61*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C62*/SET SCHEMA PUBLIC
-DELETE FROM CUSTOMERS WHERE ID='1673f1a4-cfbb-4050-b2f3-b48c3c90f3cb'
-DELETE FROM CREDIT_PROPOSALS WHERE ID='b48de61a-5501-4f69-b368-4d1366749507'
-DELETE FROM PAYMENTS WHERE ID='03350efd-b934-44eb-a543-7d55cb4a7cbe'
-COMMIT
-DISCONNECT
-/*C63*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C64*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C65*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C66*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C49*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C50*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C67*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C70*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C71*/SET SCHEMA PUBLIC
-DROP TABLE payments IF EXISTS CASCADE
-DROP TABLE credit_proposals IF EXISTS CASCADE
-DROP TABLE credits IF EXISTS
-DROP TABLE customers IF EXISTS
-CREATE TABLE customers ( id UUID PRIMARY KEY, fio VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, passport_number VARCHAR(255) NOT NULL )
-CREATE TABLE credits ( id UUID PRIMARY KEY, limit DECIMAL NOT NULL, interest_rate DECIMAL NOT NULL )
-CREATE TABLE credit_proposals ( id UUID PRIMARY KEY, credit_amount DECIMAL NOT NULL, customer_id UUID NOT NULL, credit_id UUID NOT NULL, FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE, FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE )
-CREATE TABLE payments ( id UUID PRIMARY KEY, date_time TIMESTAMP NOT NULL, total_amount Decimal NOT NULL, amount_of_credit_body_repayment Decimal NOT NULL, amount_of_interest_repayment Decimal NOT NULL, credit_proposal_id UUID NOT NULL, FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE )
-DROP PROCEDURE populate_db IF EXISTS
-CREATE PROCEDURE populate_db() MODIFIES SQL DATA BEGIN ATOMIC DECLARE customer_id1, customer_id2, customer_id3, credit_id1, credit_id2, credit_id3, credit_proposal_id1, credit_proposal_id2, credit_proposal_id3 UUID; SET customer_id1 = UUID(); SET customer_id2 = UUID(); SET customer_id3 = UUID(); SET credit_id1 = UUID(); SET credit_id2 = UUID(); SET credit_id3 = UUID(); SET credit_proposal_id1 = UUID(); SET credit_proposal_id2 = UUID(); SET credit_proposal_id3 = UUID(); DELETE FROM payments; DELETE FROM credit_proposals; DELETE FROM credits; DELETE FROM customers; INSERT INTO customers (id, fio, phone_number, email, passport_number) VALUES (customer_id1, 'fio1', 'phone1', 'email1', 'pas1'), (customer_id2, 'fio2', 'phone2', 'email2', 'pas2'), (customer_id3, 'fio3', 'phone3', 'email3', 'pas3'); INSERT INTO credits (id, limit, interest_rate) VALUES (credit_id1, 100.5, 10.5), (credit_id2, 200.5, 20.5), (credit_id3, 300.5, 30.5); INSERT INTO credit_proposals (id, credit_amount, customer_id, credit_id) VALUES (credit_proposal_id1, 50.5, customer_id1, credit_id1), (credit_proposal_id2, 150.5, customer_id2, credit_id2), (credit_proposal_id3, 250.5, customer_id3, credit_id3); INSERT INTO payments (id, date_time, total_amount, amount_of_credit_body_repayment, amount_of_interest_repayment, credit_proposal_id) VALUES (UUID(), '2020-01-30 10:00:00', 100.5, 90.3, 10.2, credit_proposal_id1), (UUID(), '2020-01-30 13:00:00', 200.5, 180.3, 20.2, credit_proposal_id2), (UUID(), '2020-01-31 14:00:00', 300.5, 270.3, 30.2, credit_proposal_id3); END
-INSERT INTO CUSTOMERS VALUES('3818885b-30f8-419e-ac79-2fef1611cf39','fio1','phone1','email1','pas1')
-INSERT INTO CUSTOMERS VALUES('7929d768-8d6f-4c02-ab0c-e023b77f1a64','fio2','phone2','email2','pas2')
-INSERT INTO CUSTOMERS VALUES('511353ae-c9fc-48e2-a98e-14827b91e451','fio3','phone3','email3','pas3')
-INSERT INTO CREDITS VALUES('88451641-a119-48b1-ad09-e7712d1e41c1',100,10)
-INSERT INTO CREDITS VALUES('cfae7762-aedd-452a-9e0f-26c408b6ba41',200,20)
-INSERT INTO CREDITS VALUES('22206b1c-5c04-4db0-aa82-4c2981e6b0ff',300,30)
-INSERT INTO CREDIT_PROPOSALS VALUES('7e102eb5-08a6-4032-9760-c573481b16e1',50,'3818885b-30f8-419e-ac79-2fef1611cf39','88451641-a119-48b1-ad09-e7712d1e41c1')
-INSERT INTO CREDIT_PROPOSALS VALUES('798ff38d-35be-4bb3-a035-10320c5ca6a0',150,'7929d768-8d6f-4c02-ab0c-e023b77f1a64','cfae7762-aedd-452a-9e0f-26c408b6ba41')
-INSERT INTO CREDIT_PROPOSALS VALUES('9a672797-1f07-4d83-8951-954f7130d7ee',250,'511353ae-c9fc-48e2-a98e-14827b91e451','22206b1c-5c04-4db0-aa82-4c2981e6b0ff')
-INSERT INTO PAYMENTS VALUES('fcd5c61e-858a-4e8e-87e9-b7ad63d796ef','2020-01-30 10:00:00.000000',100,90,10,'7e102eb5-08a6-4032-9760-c573481b16e1')
-INSERT INTO PAYMENTS VALUES('8bee25b4-e99e-4fd7-9222-27fdc165f95f','2020-01-30 13:00:00.000000',200,180,20,'798ff38d-35be-4bb3-a035-10320c5ca6a0')
-INSERT INTO PAYMENTS VALUES('693eb2c5-d7c2-4542-93ed-5bdb352c5034','2020-01-31 14:00:00.000000',300,270,30,'9a672797-1f07-4d83-8951-954f7130d7ee')
-COMMIT
-DISCONNECT
-/*C72*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C73*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C74*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C75*/SET SCHEMA PUBLIC
-INSERT INTO CUSTOMERS VALUES('528e6692-3bb5-444c-8b28-0bed8fc1f212','Sam Villiam','+ 883(3528)767-03-47','adfgasfgasf@gmail.com','32423424')
-COMMIT
-DISCONNECT
-/*C76*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C77*/SET SCHEMA PUBLIC
-DELETE FROM CUSTOMERS WHERE ID='3818885b-30f8-419e-ac79-2fef1611cf39'
-DELETE FROM CREDIT_PROPOSALS WHERE ID='7e102eb5-08a6-4032-9760-c573481b16e1'
-DELETE FROM PAYMENTS WHERE ID='fcd5c61e-858a-4e8e-87e9-b7ad63d796ef'
-COMMIT
-DISCONNECT
-/*C78*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C79*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C80*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C81*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C82*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C83*/SET SCHEMA PUBLIC
+/*C19*/SET SCHEMA PUBLIC
 DISCONNECT

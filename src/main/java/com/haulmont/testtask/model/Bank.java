@@ -1,11 +1,22 @@
 package com.haulmont.testtask.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "banks")
 public class Bank extends AbstractBaseEntity {
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank", cascade = CascadeType.REMOVE)
+    @OrderBy("interestRate DESC")
+    @JsonManagedReference
     private List<Credit> credits;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank", cascade = CascadeType.REMOVE)
+    @OrderBy("FIO")
+    @JsonManagedReference
     private List<Customer> customers;
 
     public Bank() {
@@ -30,5 +41,12 @@ public class Bank extends AbstractBaseEntity {
 
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
+    }
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "id=" + id +
+                '}';
     }
 }

@@ -1,16 +1,34 @@
 package com.haulmont.testtask.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.Range;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Entity
+@Table(name = "Credit_proposals")
 public class CreditProposal extends AbstractBaseEntity {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    @NotNull
     private Customer customer;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "credit_id", nullable = false)
+    @NotNull
     private Credit credit;
 
+    @Column(name = "credit_amount", nullable = false)
+    @NotNull
+    @Range(min = 0)
     private BigDecimal creditAmount;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creditProposal", cascade = CascadeType.REMOVE)
+    @OrderBy("date DESC")
+    @JsonManagedReference
     private List<Payment> payments;
 
     public CreditProposal() {
@@ -53,5 +71,16 @@ public class CreditProposal extends AbstractBaseEntity {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditProposal{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", credit=" + credit +
+                ", creditAmount=" + creditAmount +
+                ", payments=" + payments +
+                '}';
     }
 }

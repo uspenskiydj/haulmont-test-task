@@ -2,6 +2,12 @@ DROP TABLE payments IF EXISTS CASCADE;
 DROP TABLE credit_proposals IF EXISTS CASCADE;
 DROP TABLE credits IF EXISTS;
 DROP TABLE customers IF EXISTS;
+DROP TABLE banks IF EXISTS;
+
+CREATE TABLE banks
+(
+    id               UUID      PRIMARY KEY
+);
 
 CREATE TABLE customers
 (
@@ -9,14 +15,18 @@ CREATE TABLE customers
     fio              VARCHAR(255)   NOT NULL,
     phone_number     VARCHAR(255)   NOT NULL,
     email            VARCHAR(255)   NOT NULL,
-    passport_number  VARCHAR(255)   NOT NULL
+    passport_number  VARCHAR(255)   NOT NULL,
+    bank_id          UUID      NOT NULL,
+    FOREIGN KEY (bank_id) REFERENCES banks (id) ON DELETE CASCADE
 );
 
 CREATE TABLE credits
 (
     id               UUID      PRIMARY KEY,
     limit            DECIMAL   NOT NULL,
-    interest_rate    DECIMAL   NOT NULL
+    interest_rate    DECIMAL   NOT NULL,
+    bank_id          UUID      NOT NULL,
+    FOREIGN KEY (bank_id) REFERENCES banks (id) ON DELETE CASCADE
 );
 
 CREATE TABLE credit_proposals
@@ -32,7 +42,7 @@ CREATE TABLE credit_proposals
 CREATE TABLE payments
 (
     id                UUID        PRIMARY KEY,
-    date_time         TIMESTAMP   NOT NULL,
+    date              Date        NOT NULL,
     total_amount      Decimal     NOT NULL,
     amount_of_credit_body_repayment   Decimal   NOT NULL,
     amount_of_interest_repayment      Decimal   NOT NULL,
