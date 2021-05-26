@@ -9,6 +9,7 @@
 <ul>
     <li><a href="customers">Клиенты</a></li>
     <li><a href="credits">Кредиты</a></li>
+    <li><a href="banks">Банки</a></li>
 </ul>
 </body>
 </html>
