@@ -1,5 +1,6 @@
 package com.haulmont.testtask.web.controller;
 
+import com.haulmont.testtask.model.Bank;
 import com.haulmont.testtask.model.Credit;
 import com.haulmont.testtask.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,8 +27,7 @@ public class CreditController {
         Credit credit = getCredit(request);
         if (!StringUtils.hasText(request.getParameter("id"))) {
             service.create(credit);
-        }
-        else {
+        } else {
             credit.setId(UUID.fromString(request.getParameter("id")));
             service.update(credit);
         }
@@ -62,6 +63,7 @@ public class CreditController {
     private Credit getCredit(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         return new Credit(new BigDecimal(request.getParameter("limit")),
-                Double.parseDouble(request.getParameter("interestRate")));
+                Double.parseDouble(request.getParameter("interestRate")),
+                new Bank(UUID.fromString(request.getParameter("bank"))));
     }
 }

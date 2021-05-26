@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Entity
 @Table(name = "customers")
@@ -45,11 +46,21 @@ public class Customer extends AbstractBaseEntity {
     public Customer() {
     }
 
-    public Customer(String FIO, String phoneNumber, String email, String passportNumber) {
+    public Customer(String FIO, String phoneNumber, String email, String passportNumber, Bank bank) {
         this.FIO = FIO;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.passportNumber = passportNumber;
+        this.bank = bank;
+    }
+
+    public Customer(UUID id, String FIO, String phoneNumber, String email, String passportNumber, Bank bank) {
+        super(id);
+        this.FIO = FIO;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.passportNumber = passportNumber;
+        this.bank = bank;
     }
 
     public String getFIO() {

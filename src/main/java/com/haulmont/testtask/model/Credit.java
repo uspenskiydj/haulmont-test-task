@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @Table(name = "credits")
@@ -32,9 +33,21 @@ public class Credit extends AbstractBaseEntity {
     public Credit() {
     }
 
-    public Credit(BigDecimal limit, Double interestRate) {
+    public Credit(BigDecimal limit, Double interestRate, Bank bank) {
         this.limit = limit;
         this.interestRate = interestRate;
+        this.bank = bank;
+    }
+
+    public Credit(UUID id, BigDecimal limit, Double interestRate, Bank bank) {
+        super(id);
+        this.limit = limit;
+        this.interestRate = interestRate;
+        this.bank = bank;
+    }
+
+    public Credit(Credit c) {
+        this(c.getId(), c.getLimit(), c.getInterestRate(), c.getBank());
     }
 
     public BigDecimal getLimit() {

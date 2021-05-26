@@ -6,6 +6,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "banks")
@@ -26,9 +27,23 @@ public class Bank extends AbstractBaseEntity {
     public Bank() {
     }
 
+    public Bank(UUID id) {
+        super(id);
+    }
+
     public Bank(List<Credit> credits, List<Customer> customers) {
         this.credits = credits;
         this.customers = customers;
+    }
+
+    public Bank(UUID id, List<Credit> credits, List<Customer> customers) {
+        super(id);
+        this.credits = credits;
+        this.customers = customers;
+    }
+
+    public Bank(Bank b) {
+        this(b.getId(), b.getCredits(), b.getCustomers());
     }
 
     public List<Credit> getCredits() {

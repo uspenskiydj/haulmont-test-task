@@ -1,5 +1,6 @@
 package com.haulmont.testtask.web.controller;
 
+import com.haulmont.testtask.model.Bank;
 import com.haulmont.testtask.model.Customer;
 import com.haulmont.testtask.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ public class CustomerController {
         return new Customer(request.getParameter("FIO"),
                 request.getParameter("phoneNumber"),
                 request.getParameter("email"),
-                request.getParameter("passportNumber"));
+                request.getParameter("passportNumber"),
+                new Bank(UUID.fromString(request.getParameter("bank"))));
     }
 }
