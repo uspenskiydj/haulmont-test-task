@@ -35,6 +35,6 @@ public class CreditService {
 
     public void update(Credit credit) {
         Assert.notNull(credit, "credit must not be null");
-        dao.save(credit);
+        checkNotFoundWithId(dao.save(credit), credit.getId());
     }
 }

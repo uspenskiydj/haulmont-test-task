@@ -31,42 +31,6 @@
             </tr>
         </c:forEach>
     </table>
-    <br><br>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-        <tr>
-            <th>Идентификатор банка</th>
-            <th>ФИО клиента</th>
-            <th>Номер паспорта</th>
-        </tr>
-        </thead>
-        <c:forEach items="${bank.customers}" var="customer">
-            <jsp:useBean id="customer" type="com.haulmont.testtask.model.Customer"/>
-            <tr>
-                <td>${customer.bank.id}</td>
-                <td>${customer.FIO}</td>
-                <td>${customer.passportNumber}</td>
-            </tr>
-        </c:forEach>
-    </table>
-    <br><br>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-        <tr>
-            <th>Идентификатор банка</th>
-            <th>Лимит по кредиту</th>
-            <th>Процентная ставка</th>
-        </tr>
-        </thead>
-        <c:forEach items="${bank.credits}" var="credit">
-            <jsp:useBean id="credit" type="com.haulmont.testtask.model.Credit"/>
-            <tr>
-                <td>${credit.bank.id}</td>
-                <td>${credit.limit}</td>
-                <td>${credit.interestRate}</td>
-            </tr>
-        </c:forEach>
-    </table>
 </section>
 </body>
 </html>

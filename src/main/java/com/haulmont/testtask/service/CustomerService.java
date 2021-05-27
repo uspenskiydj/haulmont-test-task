@@ -35,6 +35,6 @@ public class CustomerService {
 
     public void update(Customer customer) {
         Assert.notNull(customer, "customer must not be null");
-        dao.save(customer);
+        checkNotFoundWithId(dao.save(customer), customer.getId());
     }
 }

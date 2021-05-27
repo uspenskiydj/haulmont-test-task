@@ -35,6 +35,6 @@ public class BankService {
 
     public void update(Bank bank) {
         Assert.notNull(bank, "bank must not be null");
-        dao.save(bank);
+        checkNotFoundWithId(dao.save(bank), bank.getId());
     }
 }

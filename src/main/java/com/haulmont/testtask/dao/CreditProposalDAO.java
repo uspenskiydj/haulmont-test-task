@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CreditProposalDAO {
-    CreditProposal save(CreditProposal creditProposal);
+    CreditProposal save(CreditProposal creditProposal, UUID customerId, UUID creditId);
 
     boolean delete(UUID id);
 

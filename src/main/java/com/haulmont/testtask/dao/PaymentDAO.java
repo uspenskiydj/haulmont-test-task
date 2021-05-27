@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PaymentDAO {
-    Payment save(Payment payment);
+    Payment save(Payment payment, UUID creditProposalId);
 
-    boolean delete(UUID id);
+    boolean delete(UUID id, UUID creditProposalId);
 
-    Payment get(UUID id);
+    Payment get(UUID id, UUID creditProposalId);
 
-    List<Payment> getAll();
+    List<Payment> getAll(UUID creditProposalId);
 }

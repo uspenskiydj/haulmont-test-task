@@ -10,6 +10,7 @@
     <li><a href="customers">Клиенты</a></li>
     <li><a href="credits">Кредиты</a></li>
     <li><a href="banks">Банки</a></li>
+    <li><a href="creditProposalCreate">Составление кредитного предложения</a></li>
 </ul>
 </body>
 </html>

@@ -12,14 +12,12 @@ import java.util.UUID;
 @Table(name = "banks")
 public class Bank extends AbstractBaseEntity {
 
-    @OneToMany(mappedBy = "bank", cascade = CascadeType.REMOVE)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OrderBy("interestRate DESC")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank", cascade = CascadeType.REMOVE)
+    @OrderColumn(name = "interest_rate")
     @JsonManagedReference
     private List<Credit> credits;
 
-    @OneToMany(mappedBy = "bank", cascade = CascadeType.REMOVE)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank", cascade = CascadeType.REMOVE)
     @OrderBy("FIO")
     @JsonManagedReference
     private List<Customer> customers;
