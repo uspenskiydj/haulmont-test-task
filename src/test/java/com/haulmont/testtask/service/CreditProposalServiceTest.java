@@ -1,0 +1,54 @@
+package com.haulmont.testtask.service;
+
+import com.haulmont.testtask.model.CreditProposal;
+import com.haulmont.testtask.util.exception.NotFoundException;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.UUID;
+import static com.haulmont.testtask.testdata.CreditProposalTestData.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+@Transactional
+class CreditProposalServiceTest extends AbstractServiceTest {
+
+    @Autowired
+    private CreditProposalService service;
+
+    @Transactional
+    @Test
+    void create() {
+        CreditProposal created = service.create(getNew());
+        UUID newId = created.getId();
+        CreditProposal newCreditProposal = getNew();
+        newCreditProposal.setId(newId);
+        CREDIT_PROPOSAL_MATCHER.assertMatch(created, newCreditProposal);
+        CREDIT_PROPOSAL_MATCHER.assertMatch(service.get(newId), newCreditProposal);
+    }
+
+    @Test
+    void delete() {
+        service.delete(CREDIT_PROPOSAL1_ID);
+        assertThrows(NotFoundException.class, () -> service.get(CREDIT_PROPOSAL1_ID));
+    }
+
+    @Test
+    void get() {
+        CreditProposal creditProposal = service.get(CREDIT_PROPOSAL3_ID);
+        CREDIT_PROPOSAL_MATCHER.assertMatch(creditProposal, CREDIT_PROPOSAL3);
+    }
+
+    @Test
+    void getAll() {
+        List<CreditProposal> all = service.getAll();
+        CREDIT_PROPOSAL_MATCHER.assertMatch(all, CREDIT_PROPOSAL1, CREDIT_PROPOSAL2, CREDIT_PROPOSAL3);
+    }
+
+    @Test
+    void update() {
+        CreditProposal updated = getUpdated();
+        service.update(updated);
+        CREDIT_PROPOSAL_MATCHER.assertMatch(service.get(CREDIT_PROPOSAL1_ID), getUpdated());
+    }
+}

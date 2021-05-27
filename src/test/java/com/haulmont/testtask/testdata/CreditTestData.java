@@ -9,9 +9,9 @@ import static com.haulmont.testtask.testdata.BankTestData.*;
 public class CreditTestData {
     public static final TestMatcher<Credit> CREDIT_MATCHER = TestMatcher.usingEqualsComparator(Credit.class);
 
-    public static final UUID CREDIT1_ID = UUID.randomUUID();
-    public static final UUID CREDIT2_ID = UUID.randomUUID();
-    public static final UUID CREDIT3_ID = UUID.randomUUID();
+    public static final UUID CREDIT1_ID = UUID.fromString("0101ba8b-39c1-4043-8bde-6155ef55a159");
+    public static final UUID CREDIT2_ID = UUID.fromString("9a651751-1320-4888-af38-6ef79483e283");
+    public static final UUID CREDIT3_ID = UUID.fromString("f896611b-7d98-4dd2-b88a-105f2f19111f");
 
     public static final Credit CREDIT1 = new Credit(CREDIT1_ID, new BigDecimal("100.5"), 10.5, BANK1);
     public static final Credit CREDIT2 = new Credit(CREDIT2_ID, new BigDecimal("200.5"), 20.5, BANK1);
@@ -23,8 +23,8 @@ public class CreditTestData {
 
     public static Credit getUpdated() {
         Credit updated = new Credit(CREDIT1);
-        updated.setInterestRate(40.5);
-        updated.setLimit(new BigDecimal("400.5"));
+        updated.setInterestRate(50.5);
+        updated.setLimit(new BigDecimal("500.5"));
         updated.setBank(BANK2);
         return updated;
     }

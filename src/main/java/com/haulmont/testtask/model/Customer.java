@@ -1,6 +1,9 @@
 package com.haulmont.testtask.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -61,6 +65,10 @@ public class Customer extends AbstractBaseEntity {
         this.email = email;
         this.passportNumber = passportNumber;
         this.bank = bank;
+    }
+
+    public Customer(Customer c) {
+        this(c.getId(), c.getFIO(), c.getPhoneNumber(), c.getEmail(), c.getPassportNumber(), c.getBank());
     }
 
     public String getFIO() {

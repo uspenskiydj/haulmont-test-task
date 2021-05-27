@@ -3,8 +3,10 @@ package com.haulmont.testtask.service;
 import com.haulmont.testtask.dao.BankDAO;
 import com.haulmont.testtask.model.Bank;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import java.util.List;
 import java.util.UUID;
+import static com.haulmont.testtask.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class BankService {
@@ -15,15 +17,16 @@ public class BankService {
     }
 
     public Bank create(Bank bank) {
+        Assert.notNull(bank, "bank must not be null");
         return dao.save(bank);
     }
 
     public void delete(UUID id) {
-        dao.delete(id);
+        checkNotFoundWithId(dao.delete(id), id);
     }
 
     public Bank get(UUID id) {
-        return dao.get(id);
+        return checkNotFoundWithId(dao.get(id), id);
     }
 
     public List<Bank> getAll() {
@@ -31,6 +34,7 @@ public class BankService {
     }
 
     public void update(Bank bank) {
+        Assert.notNull(bank, "bank must not be null");
         dao.save(bank);
     }
 }

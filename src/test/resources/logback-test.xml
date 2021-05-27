@@ -21,7 +21,9 @@
         <appender-ref ref="result"/>
     </logger>
 
+    <logger name="org.hsqldb" level="debug"/>
     <logger name="com.haulmont.testtask" level="debug"/>
+    <!--        <logger name="org.springframework.jdbc" level="info"/>-->
 
     <root level="INFO">
         <appender-ref ref="console"/>

@@ -3,6 +3,8 @@ package com.haulmont.testtask.dao.datajpa;
 import com.haulmont.testtask.dao.CreditDAO;
 import com.haulmont.testtask.model.Credit;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +17,7 @@ public class DataJpaCreditDAO implements CreditDAO {
     }
 
     @Override
+    @Transactional
     public Credit save(Credit credit) {
         return creditDAO.save(credit);
     }

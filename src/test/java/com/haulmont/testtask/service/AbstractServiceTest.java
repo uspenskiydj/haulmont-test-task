@@ -8,7 +8,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
         "classpath:spring/spring-mvc.xml",
         "classpath:spring/spring-db-test.xml"
 })
-@SqlConfig(separator = "/;")
 @Sql(scripts = "classpath:db/populateDB_test.sql", config = @SqlConfig(encoding = "UTF-8"))
 public abstract class AbstractServiceTest {
 

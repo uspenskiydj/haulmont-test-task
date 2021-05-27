@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "payments")
@@ -44,12 +45,28 @@ public class Payment extends AbstractBaseEntity {
     public Payment() {
     }
 
-    public Payment(LocalDate date, BigDecimal totalAmount,
-                   BigDecimal amountOfCreditBodyRepayment, BigDecimal amountOfInterestRepayment) {
+    public Payment(LocalDate date, BigDecimal totalAmount, BigDecimal amountOfCreditBodyRepayment,
+                   BigDecimal amountOfInterestRepayment, CreditProposal creditProposal) {
         this.date = date;
         this.totalAmount = totalAmount;
         this.amountOfCreditBodyRepayment = amountOfCreditBodyRepayment;
         this.amountOfInterestRepayment = amountOfInterestRepayment;
+        this.creditProposal = creditProposal;
+    }
+
+    public Payment(UUID id, LocalDate date, BigDecimal totalAmount, BigDecimal amountOfCreditBodyRepayment,
+                   BigDecimal amountOfInterestRepayment, CreditProposal creditProposal) {
+        super(id);
+        this.date = date;
+        this.totalAmount = totalAmount;
+        this.amountOfCreditBodyRepayment = amountOfCreditBodyRepayment;
+        this.amountOfInterestRepayment = amountOfInterestRepayment;
+        this.creditProposal = creditProposal;
+    }
+
+    public Payment(Payment p) {
+        this(p.getId(), p.getDate(), p.getTotalAmount(), p.getAmountOfCreditBodyRepayment(),
+                p.getAmountOfInterestRepayment(), p.getCreditProposal());
     }
 
     public LocalDate getDate() {
