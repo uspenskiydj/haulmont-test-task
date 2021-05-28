@@ -11,12 +11,11 @@
     <hr>
     <h2>Составление кредитного предложения</h2>
     <jsp:useBean id="creditProposal" type="com.haulmont.testtask.model.CreditProposal" scope="request"/>
-    <form method="post" action="creditProposals">
+    <form method="post" action="creditProposalCreateForm">
         <dl>
             <dt>Клиент:</dt>
             <dd><select name="customerId">
                 <c:forEach items="${customers}" var="customer">
-                    <jsp:useBean id="customer" type="com.haulmont.testtask.model.Customer" scope="request"/>
                     <option value="${customer.id}">
                             ${customer.FIO} &nbsp; ${customer.email}
                     </option>
@@ -27,7 +26,6 @@
             <dt>Кредит:</dt>
             <dd><select name="creditId">
                 <c:forEach items="${credits}" var="credit">
-                    <jsp:useBean id="credit" type="com.haulmont.testtask.model.Credit" scope="request"/>
                     <option value="${credit.id}">
                         Ставка: &nbsp; ${credit.interestRate} &nbsp; Лимит: &nbsp; ${credit.limit}
                     </option>
@@ -39,7 +37,7 @@
             <dd><input type="text" value="${creditProposal.creditAmount}" name="creditAmount" required></dd>
         </dl>
         <button type="submit">Построить график платежей</button>
-        <button onclick="window.history.back()" type="button">Cancel</button>
+        <button onclick="window.history.back()" type="button">Назад</button>
     </form>
 </section>
 </body>

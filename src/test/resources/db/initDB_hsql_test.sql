@@ -25,7 +25,7 @@ CREATE TABLE credits
     id               UUID      PRIMARY KEY,
     limit            DECIMAL(19,2)   NOT NULL,
     interest_rate    DECIMAL(19,2)   NOT NULL,
-    bank_id          UUID       NOT NULL,
+    bank_id          UUID      NOT NULL,
     FOREIGN KEY (bank_id) REFERENCES banks (id) ON DELETE CASCADE
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE credit_proposals
 
 CREATE TABLE payments
 (
-    id                UUID              PRIMARY KEY,
+    id                UUID           PRIMARY KEY,
     date              Date              NOT NULL,
     total_amount      Decimal(19,2)     NOT NULL,
     amount_of_credit_body_repayment   Decimal(19,2)   NOT NULL,

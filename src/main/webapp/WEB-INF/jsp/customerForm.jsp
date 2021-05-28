@@ -29,8 +29,8 @@
             <dt>Номер паспорта:</dt>
             <dd><input type="text" value="${customer.passportNumber}" name="passportNumber" required></dd>
         </dl>
-        <button type="submit">Save</button>
-        <button onclick="window.history.back()" type="button">Cancel</button>
+        <button type="submit">Сохранить</button>
+        <button onclick="window.history.back()" type="button">Назад</button>
     </form>
 </section>
 </body>

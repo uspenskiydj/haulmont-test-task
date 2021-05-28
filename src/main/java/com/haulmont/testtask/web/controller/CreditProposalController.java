@@ -8,11 +8,14 @@ import com.haulmont.testtask.util.PaymentsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -36,26 +39,29 @@ public class CreditProposalController {
         model.addAttribute("creditProposal", creditProposal);
         model.addAttribute("customers", customerService.getAll());
         model.addAttribute("credits", creditService.getAll());
-        return "redirect:/creditProposalCreateForm";
+        return "creditProposalForm";
     }
 
-    @GetMapping("creditProposalCreateForm")
+    @PostMapping("creditProposalCreateForm")
     public String getCreditProposalWithPaymentsToCreate(Model model, HttpServletRequest request) throws IOException {
         CreditProposal creditProposal = getCreditProposal(request);
         UUID customerId = UUID.fromString(request.getParameter("customerId"));
         UUID creditId = UUID.fromString(request.getParameter("creditId"));
-        creditProposal.setPayments(PaymentsUtil.createNew(creditProposal, creditService.get(creditId)));
+        List<Payment> payments = PaymentsUtil.createNew(creditProposal, creditService.get(creditId));
+        Customer customer = customerService.get(customerId);
+        Credit credit = creditService.get(creditId);
+        creditProposal.setPayments(payments);
+        creditProposal.setCustomer(customer);
+        creditProposal.setCredit(credit);
         model.addAttribute("creditProposal", creditProposal);
-        model.addAttribute("customer", customerService.get(customerId));
-        model.addAttribute("credit", creditService.get(creditId));
-        return "redirect:/creditProposalWithPaymentsForm";
+        model.addAttribute("creditBalancePerMonth", PaymentsUtil.calcCreditBalancePerMonth(payments));
+        model.addAttribute("percentSum", PaymentsUtil.calcPercentSum(payments));
+        return "creditProposalWithPaymentsForm";
     }
 
-    @PostMapping("/creditProposals")
-    public String createCreditProposal(HttpServletRequest request, @RequestBody CreditProposal creditProposal) {
-        UUID customerId = UUID.fromString(request.getParameter("customerId"));
-        UUID creditId = UUID.fromString(request.getParameter("creditId"));
-        service.create(creditProposal, customerId, creditId);
+    @PostMapping(value = "/creditProposals")
+    public String createCreditProposal(@ModelAttribute("creditProposal") CreditProposal creditProposal) {
+        service.create(creditProposal, creditProposal.getCustomer().getId(), creditProposal.getCredit().getId());
         return "redirect:/creditProposals";
     }
 
