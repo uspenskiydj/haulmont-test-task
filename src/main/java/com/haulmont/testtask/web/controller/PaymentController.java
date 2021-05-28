@@ -35,7 +35,7 @@ public class PaymentController {
         return "redirect:/payments";
     }
 
-    @GetMapping("/banks/delete")
+    @GetMapping("/payments/delete")
     public String delete(HttpServletRequest request, @RequestParam String id) {
         UUID creditProposalId = UUID.fromString(request.getParameter("creditProposalId"));
         service.delete(UUID.fromString(id), creditProposalId);

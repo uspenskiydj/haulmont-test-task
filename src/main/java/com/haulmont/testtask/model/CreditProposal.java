@@ -100,7 +100,6 @@ public class CreditProposal extends AbstractBaseEntity {
                 ", customer=" + customer +
                 ", credit=" + credit +
                 ", creditAmount=" + creditAmount +
-                ", payments=" + payments +
                 '}';
     }
 }

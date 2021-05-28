@@ -32,7 +32,7 @@ public class DataJpaPaymentDAO implements PaymentDAO {
     @Override
     public Payment get(UUID id, UUID creditProposalId) {
         return paymentDAO.findById(id)
-                .filter(payment -> payment.getCreditProposal().getId() == creditProposalId)
+                .filter(payment -> payment.getCreditProposal().getId().equals(creditProposalId))
                 .orElse(null);
     }
 

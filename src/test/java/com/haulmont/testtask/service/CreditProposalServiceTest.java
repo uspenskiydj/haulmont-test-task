@@ -1,27 +1,27 @@
 package com.haulmont.testtask.service;
 
 import com.haulmont.testtask.model.CreditProposal;
+import com.haulmont.testtask.testdata.CreditProposalTestData;
 import com.haulmont.testtask.util.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 import static com.haulmont.testtask.testdata.CreditProposalTestData.*;
+import static com.haulmont.testtask.testdata.CreditTestData.*;
+import static com.haulmont.testtask.testdata.CustomerTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Transactional
 class CreditProposalServiceTest extends AbstractServiceTest {
 
     @Autowired
     private CreditProposalService service;
 
-    @Transactional
     @Test
     void create() {
-        CreditProposal created = service.create(getNew());
+        CreditProposal created = service.create(CreditProposalTestData.getNew(), CUSTOMER1_ID, CREDIT2_ID);
         UUID newId = created.getId();
-        CreditProposal newCreditProposal = getNew();
+        CreditProposal newCreditProposal = CreditProposalTestData.getNew();
         newCreditProposal.setId(newId);
         CREDIT_PROPOSAL_MATCHER.assertMatch(created, newCreditProposal);
         CREDIT_PROPOSAL_MATCHER.assertMatch(service.get(newId), newCreditProposal);
@@ -47,8 +47,8 @@ class CreditProposalServiceTest extends AbstractServiceTest {
 
     @Test
     void update() {
-        CreditProposal updated = getUpdated();
-        service.update(updated);
-        CREDIT_PROPOSAL_MATCHER.assertMatch(service.get(CREDIT_PROPOSAL1_ID), getUpdated());
+        CreditProposal updated = CreditProposalTestData.getUpdated();
+        service.update(updated, CUSTOMER1_ID, CREDIT1_ID);
+        CREDIT_PROPOSAL_MATCHER.assertMatch(service.get(CREDIT_PROPOSAL1_ID), CreditProposalTestData.getUpdated());
     }
 }

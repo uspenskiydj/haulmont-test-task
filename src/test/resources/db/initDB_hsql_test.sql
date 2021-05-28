@@ -23,16 +23,16 @@ CREATE TABLE customers
 CREATE TABLE credits
 (
     id               UUID      PRIMARY KEY,
-    limit            DECIMAL   NOT NULL,
-    interest_rate    DECIMAL   NOT NULL,
-    bank_id          UUID      NOT NULL,
+    limit            DECIMAL(19,2)   NOT NULL,
+    interest_rate    DECIMAL(19,2)   NOT NULL,
+    bank_id          UUID       NOT NULL,
     FOREIGN KEY (bank_id) REFERENCES banks (id) ON DELETE CASCADE
 );
 
 CREATE TABLE credit_proposals
 (
     id               UUID      PRIMARY KEY,
-    credit_amount    DECIMAL   NOT NULL,
+    credit_amount    DECIMAL(19,2)   NOT NULL,
     customer_id      UUID      NOT NULL,
     credit_id        UUID      NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE,
@@ -41,11 +41,11 @@ CREATE TABLE credit_proposals
 
 CREATE TABLE payments
 (
-    id                UUID        PRIMARY KEY,
-    date              Date        NOT NULL,
-    total_amount      Decimal     NOT NULL,
-    amount_of_credit_body_repayment   Decimal   NOT NULL,
-    amount_of_interest_repayment      Decimal   NOT NULL,
-    credit_proposal_id                UUID      NOT NULL,
+    id                UUID              PRIMARY KEY,
+    date              Date              NOT NULL,
+    total_amount      Decimal(19,2)     NOT NULL,
+    amount_of_credit_body_repayment   Decimal(19,2)   NOT NULL,
+    amount_of_interest_repayment      Decimal(19,2)   NOT NULL,
+    credit_proposal_id                UUID            NOT NULL,
     FOREIGN KEY (credit_proposal_id) REFERENCES credit_proposals (id) ON DELETE CASCADE
 );
