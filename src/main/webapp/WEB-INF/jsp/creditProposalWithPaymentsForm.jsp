@@ -13,13 +13,13 @@
     <hr>
     <h2>Оформление кредита</h2>
     <jsp:useBean id="creditProposal" type="com.haulmont.testtask.model.CreditProposal" scope="request"/>
-    <form:form method="post" action="creditProposals" modelAttribute="creditProposal">
+    <form method="post" action="creditProposals">
         <dl>
             <dt>Клиент:</dt>
             <dd><select name="customerId" disabled>
-                    <option value="${creditProposal.customer.id}">
-                            ${creditProposal.customer.FIO} &nbsp; ${creditProposal.customer.email}
-                    </option>
+                <option value="${creditProposal.customer.id}">
+                        ${creditProposal.customer.FIO} &nbsp; ${creditProposal.customer.email}
+                </option>
             </select><dd>
         </dl>
         <dl>
@@ -58,11 +58,11 @@
                     <td><fmt:formatNumber value="${payment.totalAmount}" maxFractionDigits="2"/></td>
                     <td><fmt:formatNumber value="${payment.amountOfCreditBodyRepayment}" maxFractionDigits="2"/></td>
                     <td><fmt:formatNumber value="${payment.amountOfInterestRepayment}" maxFractionDigits="2"/></td>
-                    <td>${creditBalancePerMonth.get(сounter.index)}</td>
+                    <td><fmt:formatNumber value="${creditBalancePerMonth.get(сounter.index)}" maxFractionDigits="2"/></td>
                 </tr>
             </c:forEach>
         </table>
-    </form:form>
+    </form>
 </section>
 </body>
 </html>

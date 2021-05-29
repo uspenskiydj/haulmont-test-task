@@ -16,9 +16,9 @@ public class CreditProposalService {
         this.dao = dao;
     }
 
-    public CreditProposal create(CreditProposal creditProposal, UUID customerId, UUID creditId) {
+    public CreditProposal create(CreditProposal creditProposal) {
         Assert.notNull(creditProposal, "creditProposal must not be null");
-        return dao.save(creditProposal, customerId, creditId);
+        return dao.save(creditProposal);
     }
 
     public void delete(UUID id) {
@@ -33,8 +33,8 @@ public class CreditProposalService {
         return dao.getAll();
     }
 
-    public void update(CreditProposal creditProposal, UUID customerId, UUID creditId) {
+    public void update(CreditProposal creditProposal) {
         Assert.notNull(creditProposal, "creditProposal must not be null");
-        checkNotFoundWithId(dao.save(creditProposal, customerId, creditId), creditProposal.getId());
+        checkNotFoundWithId(dao.save(creditProposal), creditProposal.getId());
     }
 }

@@ -1,6 +1,5 @@
 package com.haulmont.testtask.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -24,17 +23,15 @@ public class CreditProposal extends AbstractBaseEntity {
     @JoinColumn(name = "customer_id", nullable = false)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "credit_id", nullable = false)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
     private Credit credit;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creditProposal", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creditProposal", cascade = CascadeType.ALL)
     @OrderBy("date DESC")
     @JsonManagedReference
     private List<Payment> payments;

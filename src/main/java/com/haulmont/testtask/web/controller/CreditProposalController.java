@@ -8,16 +8,16 @@ import com.haulmont.testtask.util.PaymentsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+@SessionAttributes("creditProposal")
 @Controller
 public class CreditProposalController {
     @Autowired
@@ -60,8 +60,9 @@ public class CreditProposalController {
     }
 
     @PostMapping(value = "/creditProposals")
-    public String createCreditProposal(@ModelAttribute("creditProposal") CreditProposal creditProposal) {
-        service.create(creditProposal, creditProposal.getCustomer().getId(), creditProposal.getCredit().getId());
+    public String createCreditProposal(CreditProposal creditProposal, SessionStatus status) {
+        service.create(creditProposal);
+        status.setComplete();
         return "redirect:/creditProposals";
     }
 

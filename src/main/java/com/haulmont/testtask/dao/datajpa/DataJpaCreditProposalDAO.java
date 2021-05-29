@@ -10,20 +10,14 @@ import java.util.UUID;
 @Repository
 public class DataJpaCreditProposalDAO implements CreditProposalDAO {
     private final CrudCreditProposalDAO creditProposalDAO;
-    private final CrudCustomerDAO customerDAO;
-    private final CrudCreditDAO creditDAO;
 
-    public DataJpaCreditProposalDAO(CrudCreditProposalDAO creditProposalDAO, CrudCustomerDAO customerDAO, CrudCreditDAO creditDAO) {
+    public DataJpaCreditProposalDAO(CrudCreditProposalDAO creditProposalDAO) {
         this.creditProposalDAO = creditProposalDAO;
-        this.customerDAO = customerDAO;
-        this.creditDAO = creditDAO;
     }
 
     @Override
     @Transactional
-    public CreditProposal save(CreditProposal creditProposal, UUID customerId, UUID creditId) {
-        creditProposal.setCustomer(customerDAO.getOne(customerId));
-        creditProposal.setCredit(creditDAO.getOne(creditId));
+    public CreditProposal save(CreditProposal creditProposal) {
         return creditProposalDAO.save(creditProposal);
     }
 

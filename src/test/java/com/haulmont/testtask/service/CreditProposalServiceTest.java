@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.UUID;
 import static com.haulmont.testtask.testdata.CreditProposalTestData.*;
-import static com.haulmont.testtask.testdata.CreditTestData.*;
-import static com.haulmont.testtask.testdata.CustomerTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CreditProposalServiceTest extends AbstractServiceTest {
@@ -19,7 +17,7 @@ class CreditProposalServiceTest extends AbstractServiceTest {
 
     @Test
     void create() {
-        CreditProposal created = service.create(CreditProposalTestData.getNew(), CUSTOMER1_ID, CREDIT2_ID);
+        CreditProposal created = service.create(CreditProposalTestData.getNew());
         UUID newId = created.getId();
         CreditProposal newCreditProposal = CreditProposalTestData.getNew();
         newCreditProposal.setId(newId);
@@ -48,7 +46,7 @@ class CreditProposalServiceTest extends AbstractServiceTest {
     @Test
     void update() {
         CreditProposal updated = CreditProposalTestData.getUpdated();
-        service.update(updated, CUSTOMER1_ID, CREDIT1_ID);
+        service.update(updated);
         CREDIT_PROPOSAL_MATCHER.assertMatch(service.get(CREDIT_PROPOSAL1_ID), CreditProposalTestData.getUpdated());
     }
 }
