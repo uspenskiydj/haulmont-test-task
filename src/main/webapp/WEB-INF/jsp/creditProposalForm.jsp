@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>New Credit Proposal</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="webjars/bootstrap/4.5.3/css/bootstrap.min.css">
 </head>
 <body>
@@ -14,14 +13,13 @@
     <div class="container">
         <h2>Составление кредитного предложения</h2>
         <br>
-        <jsp:useBean id="creditProposal" type="com.haulmont.testtask.model.CreditProposal" scope="request"/>
         <form method="post" action="creditProposalCreateForm">
             <dl>
                 <dt>Клиент:</dt>
-                <dd><select name="customerId">
+                <dd><select class="form-control" name="customerId">
                     <c:forEach items="${customers}" var="customer">
                         <option value="${customer.id}">
-                                ${customer.FIO} &nbsp; ${customer.email}
+                                ${customer.fio} &nbsp; ${customer.email}
                         </option>
                     </c:forEach>
                 </select>
@@ -29,7 +27,7 @@
             </dl>
             <dl>
                 <dt>Кредит:</dt>
-                <dd><select name="creditId">
+                <dd><select class="form-control" name="creditId">
                     <c:forEach items="${credits}" var="credit">
                         <option value="${credit.id}">
                             Ставка: &nbsp; ${credit.interestRate} &nbsp; Лимит: &nbsp; ${credit.limit}
@@ -40,7 +38,8 @@
             </dl>
             <dl>
                 <dt>Сумма кредита:</dt>
-                <dd><input type="text" value="${creditProposal.creditAmount}" name="creditAmount" required></dd>
+                <dd><input type="text" name="creditAmount" class="form-control" required>
+                    ${creditAmountError == true ? 'Пожалуйста укажите сумму кредита в пределах лимита по кредиту' : ''}</dd>
             </dl>
             <button class="btn btn-primary" type="submit">Построить график платежей</button>
             <button class="btn btn-secondary" onclick="window.history.back()" type="button">Назад</button>

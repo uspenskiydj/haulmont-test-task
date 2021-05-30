@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Credits</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="webjars/bootstrap/4.5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css">
 </head>

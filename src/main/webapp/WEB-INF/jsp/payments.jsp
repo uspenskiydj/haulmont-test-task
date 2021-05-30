@@ -4,7 +4,6 @@
 <html>
 <head>
     <title>Payments</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="webjars/bootstrap/4.5.3/css/bootstrap.min.css">
 </head>
 <body>

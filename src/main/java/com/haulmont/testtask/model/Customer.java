@@ -16,7 +16,7 @@ public class Customer extends AbstractBaseEntity {
     @Column(name = "fio", nullable = false)
     @NotBlank
     @Size(min = 3, max = 255)
-    private String FIO;
+    private String fio;
 
     @Column(name = "phone_number", nullable = false)
     @NotBlank
@@ -34,7 +34,7 @@ public class Customer extends AbstractBaseEntity {
     @Size(min = 3, max = 30)
     private String passportNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bank_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -43,17 +43,17 @@ public class Customer extends AbstractBaseEntity {
     public Customer() {
     }
 
-    public Customer(String FIO, String phoneNumber, String email, String passportNumber, Bank bank) {
-        this.FIO = FIO;
+    public Customer(String fio, String phoneNumber, String email, String passportNumber, Bank bank) {
+        this.fio = fio;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.passportNumber = passportNumber;
         this.bank = bank;
     }
 
-    public Customer(UUID id, String FIO, String phoneNumber, String email, String passportNumber, Bank bank) {
+    public Customer(UUID id, String fio, String phoneNumber, String email, String passportNumber, Bank bank) {
         super(id);
-        this.FIO = FIO;
+        this.fio = fio;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.passportNumber = passportNumber;
@@ -61,15 +61,15 @@ public class Customer extends AbstractBaseEntity {
     }
 
     public Customer(Customer c) {
-        this(c.getId(), c.getFIO(), c.getPhoneNumber(), c.getEmail(), c.getPassportNumber(), c.getBank());
+        this(c.getId(), c.getFio(), c.getPhoneNumber(), c.getEmail(), c.getPassportNumber(), c.getBank());
     }
 
-    public String getFIO() {
-        return FIO;
+    public String getFio() {
+        return fio;
     }
 
-    public void setFIO(String FIO) {
-        this.FIO = FIO;
+    public void setFio(String fio) {
+        this.fio = fio;
     }
 
     public String getPhoneNumber() {
@@ -108,7 +108,7 @@ public class Customer extends AbstractBaseEntity {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", FIO='" + FIO + '\'' +
+                ", fio='" + fio + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", passportNumber='" + passportNumber + '\'' +

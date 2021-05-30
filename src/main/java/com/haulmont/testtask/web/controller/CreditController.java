@@ -1,21 +1,17 @@
 package com.haulmont.testtask.web.controller;
 
-import com.haulmont.testtask.model.Bank;
 import com.haulmont.testtask.model.Credit;
 import com.haulmont.testtask.service.BankService;
 import com.haulmont.testtask.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
@@ -26,12 +22,15 @@ public class CreditController {
     private BankService bankService;
 
     @PostMapping("/credits")
-    public String createOrUpdate(HttpServletRequest request) throws IOException {
-        Credit credit = getCredit(request);
-        if (!StringUtils.hasText(request.getParameter("id"))) {
+    public String createOrUpdate(@Valid @ModelAttribute("credit") Credit credit, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("banks", bankService.getAll());
+            return "creditForm";
+        }
+        if (credit.getId() == null) {
             service.create(credit);
-        } else {
-            credit.setId(UUID.fromString(request.getParameter("id")));
+        }
+        else {
             service.update(credit);
         }
         return "redirect:/credits";
@@ -69,12 +68,5 @@ public class CreditController {
     public String getAllByBank(@RequestParam String bankId, Model model) {
         model.addAttribute("credits", service.getAllByBank(UUID.fromString(bankId)));
         return "credits";
-    }
-
-    private Credit getCredit(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
-        return new Credit(new BigDecimal(request.getParameter("limit")),
-                Double.parseDouble(request.getParameter("interestRate")),
-                bankService.get(UUID.fromString(request.getParameter("bankId"))));
     }
 }

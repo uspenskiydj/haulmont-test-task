@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Customers</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="webjars/bootstrap/4.5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css">
 </head>
@@ -34,7 +33,7 @@
             <c:forEach items="${customers}" var="customer">
                 <jsp:useBean id="customer" type="com.haulmont.testtask.model.Customer"/>
                 <tr>
-                    <td>${customer.FIO}</td>
+                    <td>${customer.fio}</td>
                     <td>${customer.phoneNumber}</td>
                     <td>${customer.email}</td>
                     <td>${customer.passportNumber}</td>

@@ -13,7 +13,7 @@ public class Bank extends AbstractBaseEntity {
     private List<Credit> credits;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank", cascade = CascadeType.REMOVE)
-    @OrderBy("FIO")
+    @OrderBy("fio")
     private List<Customer> customers;
 
     public Bank() {
@@ -38,6 +38,10 @@ public class Bank extends AbstractBaseEntity {
         this(b.getId(), b.getCredits(), b.getCustomers());
     }
 
+    public Bank(String uuid) {
+        super(UUID.fromString(uuid));
+    }
+
     public List<Credit> getCredits() {
         return credits;
     }
@@ -56,8 +60,6 @@ public class Bank extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return "Bank{" +
-                "id=" + id +
-                '}';
+        return String.valueOf(id);
     }
 }

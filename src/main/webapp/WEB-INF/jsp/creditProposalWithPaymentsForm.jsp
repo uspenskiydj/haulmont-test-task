@@ -5,7 +5,6 @@
 <html>
 <head>
     <title>New Credit Proposal</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="webjars/bootstrap/4.5.3/css/bootstrap.min.css">
 </head>
 <body>
@@ -21,7 +20,7 @@
                 <dt>Клиент:</dt>
                 <dd><select name="customerId" disabled>
                     <option value="${creditProposal.customer.id}">
-                        ${creditProposal.customer.FIO} &nbsp; ${creditProposal.customer.email}
+                        ${creditProposal.customer.fio} &nbsp; ${creditProposal.customer.email}
                     </option>
                 </select>
                 <dd>

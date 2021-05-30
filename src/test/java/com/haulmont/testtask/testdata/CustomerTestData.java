@@ -23,7 +23,7 @@ public class CustomerTestData {
 
     public static Customer getUpdated() {
         Customer updated = new Customer(CUSTOMER1);
-        updated.setFIO("fio_updated");
+        updated.setFio("fio_updated");
         updated.setPhoneNumber("phone_updated");
         updated.setEmail("email_updated");
         updated.setPassportNumber("pas_updated");
