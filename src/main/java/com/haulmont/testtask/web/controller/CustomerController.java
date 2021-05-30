@@ -2,6 +2,7 @@ package com.haulmont.testtask.web.controller;
 
 import com.haulmont.testtask.model.Bank;
 import com.haulmont.testtask.model.Customer;
+import com.haulmont.testtask.service.BankService;
 import com.haulmont.testtask.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ import java.util.UUID;
 public class CustomerController {
     @Autowired
     private CustomerService service;
+    @Autowired
+    private BankService bankService;
 
     @PostMapping("/customers")
     public String createOrUpdate(HttpServletRequest request) throws IOException {
@@ -43,6 +46,7 @@ public class CustomerController {
     public String getCustomerToCreate(Model model) {
         final Customer customer = new Customer();
         model.addAttribute("customer", customer);
+        model.addAttribute("banks", bankService.getAll());
         return "customerForm";
     }
 
@@ -50,6 +54,7 @@ public class CustomerController {
     public String getCustomerToUpdate(Model model, @RequestParam String id) {
         final Customer customer = service.get(UUID.fromString(id));
         model.addAttribute("customer", customer);
+        model.addAttribute("banks", bankService.getAll());
         return "customerForm";
     }
 
@@ -59,12 +64,18 @@ public class CustomerController {
         return "customers";
     }
 
+    @GetMapping("/customersByBank")
+    public String getAllByBank(@RequestParam String bankId, Model model) {
+        model.addAttribute("customers", service.getAllByBank(UUID.fromString(bankId)));
+        return "customers";
+    }
+
     private Customer getCustomer(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         return new Customer(request.getParameter("FIO"),
                 request.getParameter("phoneNumber"),
                 request.getParameter("email"),
                 request.getParameter("passportNumber"),
-                new Bank(UUID.fromString(request.getParameter("bank"))));
+                bankService.get(UUID.fromString(request.getParameter("bankId"))));
     }
 }

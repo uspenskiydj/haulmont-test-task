@@ -29,6 +29,16 @@
             <dt>Номер паспорта:</dt>
             <dd><input type="text" value="${customer.passportNumber}" name="passportNumber" required></dd>
         </dl>
+        <dl>
+            <dt>Банк:</dt>
+            <dd><select name="bankId">
+                <c:forEach items="${banks}" var="bank" varStatus="сounter">
+                    <option value="${bank.id}">
+                        Банк ${сounter.count}
+                    </option>
+                </c:forEach>
+            </select><dd>
+        </dl>
         <button type="submit">Сохранить</button>
         <button onclick="window.history.back()" type="button">Назад</button>
     </form>

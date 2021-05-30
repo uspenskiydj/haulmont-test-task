@@ -4,7 +4,6 @@ import com.haulmont.testtask.dao.CustomerDAO;
 import com.haulmont.testtask.model.Customer;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -35,5 +34,10 @@ public class DataJpaCustomerDAO implements CustomerDAO {
     @Override
     public List<Customer> getAll() {
         return customerDAO.findAll();
+    }
+
+    @Override
+    public List<Customer> getAllByBank(UUID bankID) {
+        return customerDAO.getAll(bankID);
     }
 }

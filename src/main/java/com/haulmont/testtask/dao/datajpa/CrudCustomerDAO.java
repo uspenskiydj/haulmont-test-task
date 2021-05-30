@@ -1,6 +1,7 @@
 package com.haulmont.testtask.dao.datajpa;
 
 import com.haulmont.testtask.model.Customer;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,4 +16,6 @@ public interface CrudCustomerDAO extends JpaRepository<Customer, UUID> {
     @Query("DELETE FROM Customer c WHERE c.id=:id")
     int delete(@Param("id") UUID id);
 
+    @Query("SELECT c FROM Customer c WHERE c.bank.id=:bankId")
+    List<Customer> getAll(@Param("bankId") UUID bankId);
 }

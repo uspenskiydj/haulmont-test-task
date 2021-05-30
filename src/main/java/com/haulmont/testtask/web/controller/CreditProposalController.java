@@ -27,7 +27,7 @@ public class CreditProposalController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("creditProposals/delete")
+    @GetMapping("/creditProposals/delete")
     public String delete(@RequestParam String id) {
         service.delete(UUID.fromString(id));
         return "redirect:/creditProposals";
@@ -48,11 +48,9 @@ public class CreditProposalController {
         UUID customerId = UUID.fromString(request.getParameter("customerId"));
         UUID creditId = UUID.fromString(request.getParameter("creditId"));
         List<Payment> payments = PaymentsUtil.createNew(creditProposal, creditService.get(creditId));
-        Customer customer = customerService.get(customerId);
-        Credit credit = creditService.get(creditId);
         creditProposal.setPayments(payments);
-        creditProposal.setCustomer(customer);
-        creditProposal.setCredit(credit);
+        creditProposal.setCustomer(customerService.get(customerId));
+        creditProposal.setCredit(creditService.get(creditId));
         model.addAttribute("creditProposal", creditProposal);
         model.addAttribute("creditBalancePerMonth", PaymentsUtil.calcCreditBalancePerMonth(payments));
         model.addAttribute("percentSum", PaymentsUtil.calcPercentSum(payments));

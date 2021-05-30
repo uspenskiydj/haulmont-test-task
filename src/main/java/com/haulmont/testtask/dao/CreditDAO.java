@@ -12,4 +12,6 @@ public interface CreditDAO {
     Credit get(UUID id);
 
     List<Credit> getAll();
+
+    List<Credit> getAllByBank(UUID bankID);
 }

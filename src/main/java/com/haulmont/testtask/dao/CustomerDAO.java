@@ -12,4 +12,6 @@ public interface CustomerDAO {
     Customer get(UUID id);
 
     List<Customer> getAll();
+
+    List<Customer> getAllByBank(UUID bankID);
 }

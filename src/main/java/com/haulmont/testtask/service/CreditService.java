@@ -33,6 +33,10 @@ public class CreditService {
         return dao.getAll();
     }
 
+    public List<Credit> getAllByBank(UUID bankID) {
+        return dao.getAllByBank(bankID);
+    }
+
     public void update(Credit credit) {
         Assert.notNull(credit, "credit must not be null");
         checkNotFoundWithId(dao.save(credit), credit.getId());

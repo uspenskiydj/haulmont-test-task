@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +17,7 @@ public class PaymentController {
     private PaymentService service;
 
     @GetMapping("/paymentsByCreditProposal")
-    public String getAll(@RequestParam String creditProposalId, Model model) {
+    public String getAllByCreditProposal(@RequestParam String creditProposalId, Model model) {
         List<Payment> payments = service.getAll(UUID.fromString(creditProposalId));
         model.addAttribute("payments", payments);
         model.addAttribute("creditBalancePerMonth", PaymentsUtil.calcCreditBalancePerMonth(payments));

@@ -2,6 +2,7 @@ package com.haulmont.testtask.web.controller;
 
 import com.haulmont.testtask.model.Bank;
 import com.haulmont.testtask.model.Credit;
+import com.haulmont.testtask.service.BankService;
 import com.haulmont.testtask.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ import java.util.UUID;
 public class CreditController {
     @Autowired
     private CreditService service;
+    @Autowired
+    private BankService bankService;
 
     @PostMapping("/credits")
     public String createOrUpdate(HttpServletRequest request) throws IOException {
@@ -44,6 +47,7 @@ public class CreditController {
     public String getCreditToCreate(Model model) {
         final Credit credit = new Credit();
         model.addAttribute("credit", credit);
+        model.addAttribute("banks", bankService.getAll());
         return "creditForm";
     }
 
@@ -51,6 +55,7 @@ public class CreditController {
     public String getCreditToUpdate(Model model, @RequestParam String id) {
         final Credit credit = service.get(UUID.fromString(id));
         model.addAttribute("credit", credit);
+        model.addAttribute("banks", bankService.getAll());
         return "creditForm";
     }
 
@@ -60,10 +65,16 @@ public class CreditController {
         return "credits";
     }
 
+    @GetMapping("/creditsByBank")
+    public String getAllByBank(@RequestParam String bankId, Model model) {
+        model.addAttribute("credits", service.getAllByBank(UUID.fromString(bankId)));
+        return "credits";
+    }
+
     private Credit getCredit(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         return new Credit(new BigDecimal(request.getParameter("limit")),
                 Double.parseDouble(request.getParameter("interestRate")),
-                new Bank(UUID.fromString(request.getParameter("bank"))));
+                bankService.get(UUID.fromString(request.getParameter("bankId"))));
     }
 }

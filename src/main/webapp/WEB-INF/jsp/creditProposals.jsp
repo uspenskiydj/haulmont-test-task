@@ -15,8 +15,8 @@
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
-            <th>Клиент</th>
-            <th>Кредит</th>
+            <th>ФИО клиента</th>
+            <th>Процентная ставка</th>
             <th>Сумма кредита</th>
             <th>График платежей</th>
             <th></th>

@@ -36,4 +36,9 @@ public class DataJpaCreditDAO implements CreditDAO {
     public List<Credit> getAll() {
         return creditDAO.findAll();
     }
+
+    @Override
+    public List<Credit> getAllByBank(UUID bankID) {
+        return creditDAO.getAll(bankID);
+    }
 }

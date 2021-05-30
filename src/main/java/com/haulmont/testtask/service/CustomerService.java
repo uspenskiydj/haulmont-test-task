@@ -33,6 +33,10 @@ public class CustomerService {
         return dao.getAll();
     }
 
+    public List<Customer> getAllByBank(UUID bankID) {
+        return dao.getAllByBank(bankID);
+    }
+
     public void update(Customer customer) {
         Assert.notNull(customer, "customer must not be null");
         checkNotFoundWithId(dao.save(customer), customer.getId());

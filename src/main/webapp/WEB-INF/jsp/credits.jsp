@@ -8,6 +8,7 @@
 <body>
 <section>
     <h3><a href="/">Домой</a></h3>
+    <button onclick="window.history.back()" type="button">Назад</button>
     <hr/>
     <h2>Кредиты</h2>
     <a href="creditCreateForm">Добавить кредит</a>

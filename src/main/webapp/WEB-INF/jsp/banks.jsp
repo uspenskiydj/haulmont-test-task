@@ -13,19 +13,22 @@
     <form method="post" action="banks">
         <button type="submit">Добавить банк</button>
     </form>
-    <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
-            <th>Идентификатор банка</th>
+            <th>Банк</th>
+            <th>Клиенты</th>
+            <th>Кредиты</th>
             <th></th>
             <th></th>
         </tr>
         </thead>
-        <c:forEach items="${banks}" var="bank">
+        <c:forEach items="${banks}" var="bank" varStatus="сounter">
             <jsp:useBean id="bank" type="com.haulmont.testtask.model.Bank"/>
             <tr>
-                <td>${bank.id}</td>
+                <td>Банк ${сounter.count}</td>
+                <td><a href="customersByBank?bankId=${bank.id}">Клиенты</a></td>
+                <td><a href="creditsByBank?bankId=${bank.id}">Кредиты</a></td>
                 <td><a href="#">Update</a></td>
                 <td><a href="banks/delete?id=${bank.id}">Delete</a></td>
             </tr>
