@@ -1,9 +1,5 @@
 package com.haulmont.testtask.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -14,12 +10,10 @@ public class Bank extends AbstractBaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank", cascade = CascadeType.REMOVE)
     @OrderColumn(name = "interest_rate")
-    @JsonManagedReference
     private List<Credit> credits;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank", cascade = CascadeType.REMOVE)
     @OrderBy("FIO")
-    @JsonManagedReference
     private List<Customer> customers;
 
     public Bank() {

@@ -1,6 +1,5 @@
 package com.haulmont.testtask.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
@@ -33,7 +32,6 @@ public class CreditProposal extends AbstractBaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "creditProposal", cascade = CascadeType.ALL)
     @OrderBy("date DESC")
-    @JsonManagedReference
     private List<Payment> payments;
 
     public CreditProposal() {
