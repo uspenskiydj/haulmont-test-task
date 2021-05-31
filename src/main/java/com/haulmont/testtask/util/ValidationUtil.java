@@ -31,7 +31,7 @@ public class ValidationUtil {
     public static boolean isValidCreditAmount(String creditAmountStr, Credit credit) {
         try {
             BigDecimal creditAmount = new BigDecimal(creditAmountStr);
-            if (creditAmount.compareTo(credit.getLimit()) > 0) {
+            if (creditAmount.compareTo(credit.getLimit()) > 0 || creditAmount.compareTo(BigDecimal.TEN) < 0) {
                 return false;
             }
             return true;

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -34,34 +36,30 @@ public class CreditProposalController {
     }
 
     @GetMapping("creditProposalCreate")
-    public String getCreditProposalToCreate(Model model) {
-        model.addAttribute("customers", customerService.getAll());
-        model.addAttribute("credits", creditService.getAll());
-        return "creditProposalForm";
+    public ModelAndView getCreditProposalToCreate() {
+        return getCreditProposalForm(false);
     }
 
     @PostMapping("creditProposalCreateForm")
-    public String getCreditProposalWithPaymentsToCreate(Model model, HttpServletRequest request) throws IOException {
+    public ModelAndView getCreditProposalWithPaymentsToCreate(HttpServletRequest request) throws IOException {
         request.setCharacterEncoding("UTF-8");
-        CreditProposal creditProposal = new CreditProposal();
         UUID creditId = UUID.fromString(request.getParameter("creditId"));
+        UUID customerId = UUID.fromString(request.getParameter("customerId"));
         Credit credit = creditService.get(creditId);
         if (!ValidationUtil.isValidCreditAmount(request.getParameter("creditAmount"), credit)) {
-            model.addAttribute("customers", customerService.getAll());
-            model.addAttribute("credits", creditService.getAll());
-            model.addAttribute("creditAmountError", true);
-            return "creditProposalForm";
+            return getCreditProposalForm(true);
         }
+        CreditProposal creditProposal = new CreditProposal();
         creditProposal.setCreditAmount(new BigDecimal(request.getParameter("creditAmount")));
         creditProposal.setCredit(credit);
-        UUID customerId = UUID.fromString(request.getParameter("customerId"));
         creditProposal.setCustomer(customerService.get(customerId));
         List<Payment> payments = PaymentsUtil.createNew(creditProposal, credit);
         creditProposal.setPayments(payments);
-        model.addAttribute("creditProposal", creditProposal);
-        model.addAttribute("creditBalancePerMonth", PaymentsUtil.calcCreditBalancePerMonth(payments));
-        model.addAttribute("percentSum", PaymentsUtil.calcPercentSum(payments));
-        return "creditProposalWithPaymentsForm";
+        ModelAndView modelAndView = new ModelAndView("creditProposalWithPaymentsForm");
+        modelAndView.addObject("creditProposal", creditProposal);
+        modelAndView.addObject("creditBalancePerMonth", PaymentsUtil.calcCreditBalancePerMonth(payments));
+        modelAndView.addObject("percentSum", PaymentsUtil.calcPercentSum(payments));
+        return modelAndView;
     }
 
     @PostMapping(value = "/creditProposals")
@@ -75,5 +73,15 @@ public class CreditProposalController {
     public String getAll(Model model) {
         model.addAttribute("creditProposals", service.getAll());
         return "creditProposals";
+    }
+
+    private ModelAndView getCreditProposalForm(boolean hasErrors) {
+        ModelAndView modelAndView = new ModelAndView("creditProposalForm");
+        modelAndView.addObject("customers", customerService.getAll());
+        modelAndView.addObject("credits", creditService.getAll());
+        if (hasErrors) {
+            modelAndView.addObject("creditAmountError", true);
+        }
+        return modelAndView;
     }
 }
